@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://cxgnremn0f0nl"]
+
+[ext_resource type="Script" uid="uid://3g7lg21ujmso" path="res://main/scripts/user_interface/quota_panel.gd" id="1_3fqbh"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kifso"]
+
+[node name="BottomUIPanel" type="Panel" unique_id=271835098]
+offset_top = 832.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TextChatPanel" type="Panel" parent="." unique_id=484265919]
+layout_mode = 0
+offset_right = 704.0
+offset_bottom = 248.0
+
+[node name="TextChatLabel" type="RichTextLabel" parent="TextChatPanel" unique_id=1639220012]
+layout_mode = 0
+offset_right = 704.0
+offset_bottom = 216.0
+bbcode_enabled = true
+text = "Hello world"
+
+[node name="LineEdit" type="LineEdit" parent="TextChatPanel" unique_id=1816624054]
+layout_mode = 0
+offset_top = 216.0
+offset_right = 640.0
+offset_bottom = 247.0
+placeholder_text = "Type into chat..."
+
+[node name="Button" type="Button" parent="TextChatPanel" unique_id=565490737]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 216.0
+offset_right = 704.0
+offset_bottom = 248.0
+text = "Enter"
+
+[node name="CurrencyPanel" type="Panel" parent="." unique_id=1769473677]
+layout_mode = 0
+offset_left = 1728.0
+offset_right = 1920.0
+offset_bottom = 56.0
+
+[node name="TextureRect" type="TextureRect" parent="CurrencyPanel" unique_id=1305336567]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 8.0
+offset_right = 184.0
+offset_bottom = 48.0
+texture = SubResource("PlaceholderTexture2D_kifso")
+
+[node name="Label" type="Label" parent="CurrencyPanel" unique_id=2035917783]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 136.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 25
+text = "₽xxxxxxxx"
+vertical_alignment = 1
+clip_text = true
+
+[node name="QuotaPanel" type="Panel" parent="." unique_id=1297926761]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 64.0
+offset_right = 1912.0
+offset_bottom = 240.0
+script = ExtResource("1_3fqbh")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="QuotaPanel" unique_id=1067716059]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1192.0
+offset_bottom = 168.0
+
+[node name="QuotaHBoxContainer" type="VBoxContainer" parent="QuotaPanel/ScrollContainer" unique_id=484343774]
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="QuotaPanel" unique_id=55621984]
+autostart = true
+
+[node name="QuotaLabel" type="Label" parent="." unique_id=1856773888]
+layout_mode = 0
+offset_left = 712.0
+offset_right = 1728.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 40
+text = "Quota"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="QuotaPanel/Timer" to="QuotaPanel" method="debug_create_container"]

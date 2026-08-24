@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://djqij1wc1gdmv"]
+
+[ext_resource type="Script" uid="uid://duusliypypvug" path="res://main/scripts/user_interface/factory_owner_panel.gd" id="1_83ca4"]
+[ext_resource type="Texture2D" uid="uid://be5rfacagucyv" path="res://icon.svg" id="1_u4ypw"]
+
+[node name="FactoryOwnerPanel" type="Control" unique_id=2114092598]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1664.0
+offset_bottom = -824.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("1_83ca4")
+
+[node name="Background" type="ColorRect" parent="." unique_id=368775396]
+editor_description = "Turns green or red depending if they met quota or not"
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.72464263, 0.7246426, 0.7246426, 1)
+
+[node name="Visuals" type="Control" parent="." unique_id=565238941]
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+
+[node name="Avatar" type="Sprite2D" parent="Visuals" unique_id=1416336418]
+position = Vector2(128, 64)
+scale = Vector2(0.90625, 0.90625)
+texture = ExtResource("1_u4ypw")
+
+[node name="Building" type="ColorRect" parent="Visuals" unique_id=1400143599]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 72.0
+offset_right = 248.0
+offset_bottom = 152.0
+mouse_filter = 2
+color = Color(0.38491789, 0.2352801, 0.06775344, 1)
+
+[node name="Tower" type="ColorRect" parent="Visuals" unique_id=805919242]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 112.0
+mouse_filter = 2
+color = Color(0.38491789, 0.2352801, 0.06775344, 1)
+
+[node name="NameLabel" type="Label" parent="." unique_id=575429583]
+layout_mode = 0
+offset_top = 152.0
+offset_right = 256.0
+offset_bottom = 175.0
+text = "Name"
+horizontal_alignment = 1
+
+[node name="QuotaLabel" type="Label" parent="." unique_id=1391361682]
+editor_description = "It could be like 90% or 110% of quota"
+layout_mode = 0
+offset_top = 176.0
+offset_right = 256.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 25
+text = "xxx%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionPanel" type="Panel" parent="." unique_id=882092964]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionPanel" unique_id=1466898227]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+
+[node name="DoneButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=714447478]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Done"
+
+[node name="Control2" type="Control" parent="OptionPanel/VBoxContainer" unique_id=486254723]
+layout_mode = 2
+
+[node name="InfoButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=120084306]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Info"
+
+[node name="Control" type="Control" parent="OptionPanel/VBoxContainer" unique_id=1150217596]
+layout_mode = 2
+
+[node name="BoostButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=206854161]
+layout_mode = 2
+text = "100 - Boost"
+
+[node name="InvestigateButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=453125391]
+layout_mode = 2
+text = "200 - Investigate"
+
+[node name="ExecuteButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=1558539847]
+layout_mode = 2
+text = "Execute"
+
+[connection signal="pressed" from="OptionPanel/VBoxContainer/DoneButton" to="." method="_on_done_button_pressed"]
+[connection signal="pressed" from="OptionPanel/VBoxContainer/InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="OptionPanel/VBoxContainer/BoostButton" to="." method="_on_boost_button_pressed"]
+[connection signal="pressed" from="OptionPanel/VBoxContainer/InvestigateButton" to="." method="_on_investigate_button_pressed"]
+[connection signal="pressed" from="OptionPanel/VBoxContainer/ExecuteButton" to="." method="_on_execute_button_pressed"]

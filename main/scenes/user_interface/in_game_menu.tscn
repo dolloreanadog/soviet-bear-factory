@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://osyor6j6itsf"]
+
+[node name="InGameMenu" type="Panel" unique_id=475332457]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0

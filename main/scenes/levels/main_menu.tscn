@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://xwnj4nnggtky"]
+
+[node name="MainMenu" type="Node2D" unique_id=128751082]
+
+[node name="UserInterface" type="Control" parent="." unique_id=2108981347]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="UserInterface" unique_id=973581728]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StalinButton" type="Button" parent="UserInterface/ButtonContainer" unique_id=1413004099]
+layout_mode = 2
+text = "Stalin Simulator"
+
+[node name="FactoryOwnerButton" type="Button" parent="UserInterface/ButtonContainer" unique_id=479768280]
+layout_mode = 2
+text = "Factory Owner Simulator"
