@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://e78yueve5sgu"]
+
+[ext_resource type="Texture2D" uid="uid://be5rfacagucyv" path="res://icon.svg" id="1_yy0ks"]
+
+[node name="TargetContainer" type="Control" unique_id=1566072308]
+custom_minimum_size = Vector2(512, 64)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=266830349]
+position = Vector2(32, 32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_yy0ks")
+
+[node name="NameLabel" type="Label" parent="." unique_id=47476307]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 448.0
+offset_bottom = 23.0
+text = "Name"
+
+[node name="QuotaLabel" type="Label" parent="." unique_id=1000624620]
+modulate = Color(0.20561391, 0.91086835, 7.70092e-07, 1)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 24.0
+offset_right = 384.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 25
+text = "Meets Quota"

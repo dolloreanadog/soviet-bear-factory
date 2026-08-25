@@ -1,8 +1,8 @@
 extends Node2D
 class_name FactoryView
 
-@onready var approve_info: ColorRect = %ApproveInfo
-@onready var target_select_info: ColorRect = %TargetSelectInfo
+@onready var approve_info: ApproveInfo = %ApproveInfo
+@onready var target_select_info: TargetSelectInfo = %TargetSelectInfo
 @onready var theft_manager: TheftManager = %TheftManager
 
 @export_group("Upgrades")
@@ -49,14 +49,19 @@ func select_action(action: ActionSelection) -> void:
 	match action:
 		ActionSelection.PRODUCE:
 			current_action = ActionSelection.PRODUCE
+			open_approval("Increase Production")
 		ActionSelection.FORGE:
 			current_action = ActionSelection.FORGE
+			open_approval("Forge Documents")
 		ActionSelection.SECURITY:
 			current_action = ActionSelection.SECURITY
+			open_approval("Raise Security")
 		ActionSelection.SABATOGE:
 			current_action = ActionSelection.SABATOGE
+			open_target_selection("Sabatoge")
 		ActionSelection.STEAL:
 			current_action = ActionSelection.STEAL
+			open_target_selection("Steal")
 		_:
 			pass
 
@@ -72,6 +77,12 @@ func die() -> void:
 
 func open_approval(title: String) -> void:
 	approve_info.show()
+	approve_info.title_label.text = title
+
+
+func open_target_selection(title: String) -> void:
+	target_select_info.show()
+	target_select_info.title_lable.text = title
 
 
 func _on_approve_info_no_button_pressed() -> void:
@@ -86,7 +97,6 @@ func _on_approve_info_yes_button_pressed() -> void:
 			fake_production += forging_increase_amount
 		ActionSelection.SECURITY:
 			theft_protection_level += 1
-
 		_:
 			pass
 	approve_info.hide()
@@ -103,3 +113,23 @@ func _on_target_select_info_player_selected(id: int) -> void:
 
 func _on_theft_manager_on_loss() -> void:
 	calculate_loss()
+
+
+func _on_production_button_pressed() -> void:
+	select_action(ActionSelection.PRODUCE)
+
+
+func _on_forge_button_pressed() -> void:
+	select_action(ActionSelection.FORGE)
+
+
+func _on_security_button_pressed() -> void:
+	select_action(ActionSelection.SECURITY)
+
+
+func _on_sabatoge_button_pressed() -> void:
+	select_action(ActionSelection.SABATOGE)
+
+
+func _on_steal_button_pressed() -> void:
+	select_action(ActionSelection.STEAL)

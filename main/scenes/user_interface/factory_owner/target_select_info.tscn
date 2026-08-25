@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://bqsxtkv8d3lxn"]
 
+[ext_resource type="Script" uid="uid://n7oo3pbl6vg" path="res://main/scripts/user_interface/target_select_info.gd" id="1_crbki"]
+[ext_resource type="PackedScene" uid="uid://e78yueve5sgu" path="res://main/scenes/user_interface/factory_owner/target_container.tscn" id="1_tucuf"]
+[ext_resource type="Script" uid="uid://bdnqhthnfwnvp" path="res://main/scripts/user_interface/target_container.gd" id="2_crbki"]
+
 [node name="TargetSelectInfo" type="ColorRect" unique_id=354862867]
 editor_description = "Actual Information when Stalin Investigates someone"
-visible = false
-offset_left = 384.0
-offset_right = 1560.0
+offset_right = 1176.0
 offset_bottom = 768.0
 color = Color(0.37112424, 0.38393188, 0.24738178, 1)
+script = ExtResource("1_crbki")
 
-[node name="Label" type="Label" parent="." unique_id=291010090]
+[node name="TitleLable" type="Label" parent="." unique_id=291010090]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 16.0
@@ -18,10 +21,35 @@ theme_override_font_sizes/font_size = 70
 text = "Title"
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=56274589]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1784112798]
 layout_mode = 0
-offset_left = 40.0
+offset_left = 64.0
 offset_top = 128.0
-offset_right = 1152.0
-offset_bottom = 752.0
+offset_right = 1092.0
+offset_bottom = 704.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=56274589]
+layout_mode = 2
 columns = 2
+
+[node name="TargetContainer" parent="ScrollContainer/GridContainer" unique_id=1566072308 instance=ExtResource("1_tucuf")]
+layout_mode = 2
+script = ExtResource("2_crbki")
+
+[node name="TargetContainer2" parent="ScrollContainer/GridContainer" unique_id=888999656 instance=ExtResource("1_tucuf")]
+layout_mode = 2
+script = ExtResource("2_crbki")
+
+[node name="TargetContainer3" parent="ScrollContainer/GridContainer" unique_id=395674949 instance=ExtResource("1_tucuf")]
+layout_mode = 2
+script = ExtResource("2_crbki")
+
+[node name="TargetContainer4" parent="ScrollContainer/GridContainer" unique_id=653340460 instance=ExtResource("1_tucuf")]
+layout_mode = 2
+script = ExtResource("2_crbki")
+
+[connection signal="pressed" from="ScrollContainer/GridContainer/TargetContainer" to="." method="_on_target_container_pressed"]
+[connection signal="pressed" from="ScrollContainer/GridContainer/TargetContainer2" to="." method="_on_target_container_pressed"]
+[connection signal="pressed" from="ScrollContainer/GridContainer/TargetContainer3" to="." method="_on_target_container_pressed"]
+[connection signal="pressed" from="ScrollContainer/GridContainer/TargetContainer4" to="." method="_on_target_container_pressed"]

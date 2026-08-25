@@ -87,9 +87,13 @@ text = "Steal Production"
 
 [node name="ApproveInfo" parent="MainView" unique_id=1069903873 instance=ExtResource("3_c47os")]
 unique_name_in_owner = true
+visible = false
 
 [node name="TargetSelectInfo" parent="MainView" unique_id=354862867 instance=ExtResource("4_2fr31")]
 unique_name_in_owner = true
+visible = false
+offset_left = 384.0
+offset_right = 1560.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1104664216]
 position = Vector2(960, 540)
@@ -131,6 +135,11 @@ vertical_alignment = 1
 unique_name_in_owner = true
 script = ExtResource("6_2fr31")
 
+[connection signal="pressed" from="MainView/VBoxContainer/HBoxContainer/ProductionButton" to="." method="_on_production_button_pressed"]
+[connection signal="pressed" from="MainView/VBoxContainer/HBoxContainer2/ForgeButton" to="." method="_on_forge_button_pressed"]
+[connection signal="pressed" from="MainView/VBoxContainer/HBoxContainer3/SecurityButton" to="." method="_on_security_button_pressed"]
+[connection signal="pressed" from="MainView/VBoxContainer/HBoxContainer4/SabatogeButton" to="." method="_on_sabatoge_button_pressed"]
+[connection signal="pressed" from="MainView/VBoxContainer/HBoxContainer5/StealButton" to="." method="_on_steal_button_pressed"]
 [connection signal="no_button_pressed" from="MainView/ApproveInfo" to="." method="_on_approve_info_no_button_pressed"]
 [connection signal="yes_button_pressed" from="MainView/ApproveInfo" to="." method="_on_approve_info_yes_button_pressed"]
 [connection signal="on_loss" from="TheftManager" to="." method="_on_theft_manager_on_loss"]
