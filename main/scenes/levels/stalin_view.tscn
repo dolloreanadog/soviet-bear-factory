@@ -2,7 +2,117 @@
 
 [ext_resource type="PackedScene" uid="uid://djqij1wc1gdmv" path="res://main/scenes/user_interface/factory_owner_panel.tscn" id="1_6tyok"]
 [ext_resource type="Script" uid="uid://cwgrmn7g2npnk" path="res://main/scripts/user_interface/stalin_view.gd" id="1_krpyv"]
+[ext_resource type="Texture2D" uid="uid://be5rfacagucyv" path="res://icon.svg" id="2_krpyv"]
+[ext_resource type="PackedScene" uid="uid://c8dna0miy8nnd" path="res://main/scenes/user_interface/stalin/quota_container.tscn" id="3_br8vt"]
+[ext_resource type="Script" uid="uid://3g7lg21ujmso" path="res://main/scripts/user_interface/quota_panel.gd" id="4_kqv0r"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="4_krpyv"]
+[ext_resource type="Script" uid="uid://djc3fbog12ela" path="res://main/scripts/user_interface/real_info.gd" id="7_c6tdm"]
+[ext_resource type="PackedScene" uid="uid://cfvhfj7h1o8ja" path="res://main/scenes/user_interface/factory_owner/quota_container.tscn" id="7_wwnu6"]
+
+[sub_resource type="Animation" id="Animation_8y6cy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-908, -740)]
+}
+
+[sub_resource type="Animation" id="Animation_wwnu6"]
+resource_name = "drop"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-908, -740), Vector2(-908, -540)]
+}
+
+[sub_resource type="Animation" id="Animation_c6tdm"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-908, -740)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8y6cy"]
+_data = {
+&"RESET": SubResource("Animation_8y6cy"),
+&"drop": SubResource("Animation_wwnu6"),
+&"idle": SubResource("Animation_c6tdm")
+}
+
+[sub_resource type="Animation" id="Animation_n8q74"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 540)]
+}
+
+[sub_resource type="Animation" id="Animation_i52pr"]
+resource_name = "in_depth"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 1620)]
+}
+
+[sub_resource type="Animation" id="Animation_cej1l"]
+resource_name = "main"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 540)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n8q74"]
+_data = {
+&"RESET": SubResource("Animation_n8q74"),
+&"in_depth": SubResource("Animation_i52pr"),
+&"main": SubResource("Animation_cej1l")
+}
 
 [node name="StalinView" type="Node2D" unique_id=868781734]
 script = ExtResource("1_krpyv")
@@ -17,7 +127,7 @@ offset_bottom = 1080.0
 color = Color(0.3916624, 0.1707744, 0.16503093, 1)
 
 [node name="Blackout" type="ColorRect" parent="MainView/Visual" unique_id=833184556]
-offset_left = 1600.0
+offset_left = 1576.0
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.3553137, 0.35531354, 0.35531357, 1)
@@ -34,89 +144,57 @@ offset_top = 824.0
 offset_right = 1920.0
 offset_bottom = 832.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainView" unique_id=267036081]
-offset_right = 1576.0
-offset_bottom = 784.0
+[node name="Icon" type="Sprite2D" parent="MainView/Visual" unique_id=1780336438]
+position = Vector2(776.00006, 160)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_krpyv")
 
-[node name="GridContainer" type="GridContainer" parent="MainView/ScrollContainer" unique_id=818642659]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainView" unique_id=267036081]
+offset_top = 312.0
+offset_right = 1576.0
+offset_bottom = 832.0
+
+[node name="FactoryGridContainer" type="GridContainer" parent="MainView/ScrollContainer" unique_id=818642659]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
 
-[node name="FactoryOwnerPanel" parent="MainView/ScrollContainer/GridContainer" unique_id=2114092598 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=2114092598 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel2" parent="MainView/ScrollContainer/GridContainer" unique_id=1961471618 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel2" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=1961471618 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel3" parent="MainView/ScrollContainer/GridContainer" unique_id=1994212502 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel3" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=1994212502 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel4" parent="MainView/ScrollContainer/GridContainer" unique_id=397009002 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel4" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=397009002 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel5" parent="MainView/ScrollContainer/GridContainer" unique_id=360417894 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel5" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=360417894 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel6" parent="MainView/ScrollContainer/GridContainer" unique_id=2113637072 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel6" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=2113637072 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel7" parent="MainView/ScrollContainer/GridContainer" unique_id=292364450 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel7" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=292364450 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel8" parent="MainView/ScrollContainer/GridContainer" unique_id=2033060542 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel8" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=2033060542 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel9" parent="MainView/ScrollContainer/GridContainer" unique_id=356002362 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel9" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=1469590894 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel10" parent="MainView/ScrollContainer/GridContainer" unique_id=1832726286 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel10" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=58706851 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel11" parent="MainView/ScrollContainer/GridContainer" unique_id=441625457 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel11" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=1501100869 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
-[node name="FactoryOwnerPanel12" parent="MainView/ScrollContainer/GridContainer" unique_id=449655312 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel13" parent="MainView/ScrollContainer/GridContainer" unique_id=1109669846 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel25" parent="MainView/ScrollContainer/GridContainer" unique_id=1011575968 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel14" parent="MainView/ScrollContainer/GridContainer" unique_id=1100890304 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel18" parent="MainView/ScrollContainer/GridContainer" unique_id=971003046 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel15" parent="MainView/ScrollContainer/GridContainer" unique_id=1154261998 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel16" parent="MainView/ScrollContainer/GridContainer" unique_id=1003098890 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel19" parent="MainView/ScrollContainer/GridContainer" unique_id=653693104 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel20" parent="MainView/ScrollContainer/GridContainer" unique_id=1506621962 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel17" parent="MainView/ScrollContainer/GridContainer" unique_id=190277577 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel21" parent="MainView/ScrollContainer/GridContainer" unique_id=1305731668 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel22" parent="MainView/ScrollContainer/GridContainer" unique_id=810059075 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel23" parent="MainView/ScrollContainer/GridContainer" unique_id=594923771 instance=ExtResource("1_6tyok")]
-layout_mode = 2
-
-[node name="FactoryOwnerPanel24" parent="MainView/ScrollContainer/GridContainer" unique_id=1259108962 instance=ExtResource("1_6tyok")]
+[node name="FactoryOwnerPanel12" parent="MainView/ScrollContainer/FactoryGridContainer" unique_id=1240313416 instance=ExtResource("1_6tyok")]
 layout_mode = 2
 
 [node name="FactoryView" type="Node2D" parent="." unique_id=1046296397]
@@ -130,7 +208,7 @@ offset_bottom = 1080.0
 color = Color(0.35834613, 0.1276978, 0.18366703, 1)
 
 [node name="Blackout" type="ColorRect" parent="FactoryView/Visual" unique_id=1405122746]
-offset_left = 1600.0
+offset_left = 1576.0
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.3553137, 0.35531354, 0.35531357, 1)
@@ -147,47 +225,96 @@ offset_top = 824.0
 offset_right = 1920.0
 offset_bottom = 832.0
 
-[node name="QuotaView" type="Node2D" parent="." unique_id=245934670]
-position = Vector2(0, 2160)
+[node name="PlayerIcon" type="Sprite2D" parent="FactoryView" unique_id=727442346]
+position = Vector2(159.99998, 416)
+scale = Vector2(2.4999998, 6.4999995)
+texture = ExtResource("2_krpyv")
 
-[node name="Visual" type="Node2D" parent="QuotaView" unique_id=1382148075]
+[node name="NameLabel" type="Label" parent="FactoryView" unique_id=2024495891]
+offset_left = 320.0
+offset_right = 1576.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 50
+text = "Name"
+horizontal_alignment = 1
 
-[node name="Background" type="ColorRect" parent="QuotaView/Visual" unique_id=1588064645]
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0.45885998, 0.10494275, 0.28531092, 1)
+[node name="QuotaPanel" type="Panel" parent="FactoryView" unique_id=1762491499]
+offset_left = 352.0
+offset_top = 168.0
+offset_right = 1552.0
+offset_bottom = 472.0
+script = ExtResource("4_kqv0r")
 
-[node name="Blackout" type="ColorRect" parent="QuotaView/Visual" unique_id=1529705065]
-offset_left = 1600.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0.3553137, 0.35531354, 0.35531357, 1)
+[node name="ScrollContainer" type="ScrollContainer" parent="FactoryView/QuotaPanel" unique_id=1385292943]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1192.0
+offset_bottom = 296.0
 
-[node name="Blackout2" type="ColorRect" parent="QuotaView/Visual" unique_id=287505327]
-offset_top = 832.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0.3553137, 0.35531354, 0.35531357, 1)
+[node name="QuotaHBoxContainer" type="VBoxContainer" parent="FactoryView/QuotaPanel/ScrollContainer" unique_id=1799283163]
+layout_mode = 2
 
-[node name="Seperator" type="ColorRect" parent="QuotaView/Visual" unique_id=1037444932]
-offset_left = 1600.0
-offset_top = 824.0
-offset_right = 1920.0
-offset_bottom = 832.0
+[node name="QuotaContainer" parent="FactoryView/QuotaPanel/ScrollContainer/QuotaHBoxContainer" unique_id=1471718218 instance=ExtResource("3_br8vt")]
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="FactoryView/QuotaPanel" unique_id=1956763605]
+wait_time = 2.0
+autostart = true
+
+[node name="QuotaLabel" type="Label" parent="FactoryView/QuotaPanel" unique_id=1101954231]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 1200.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 40
+text = "Quota"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="FactoryView" unique_id=808266055]
+offset_left = 1472.0
+offset_top = 8.0
+offset_right = 1568.0
+offset_bottom = 72.0
+text = "Back"
+
+[node name="Abilities" type="Panel" parent="FactoryView" unique_id=7766656]
+offset_left = 352.0
+offset_top = 520.0
+offset_right = 1552.0
+offset_bottom = 776.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FactoryView/Abilities" unique_id=844315647]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="FactoryView/Abilities/HBoxContainer" unique_id=440209733]
+layout_mode = 2
+text = "Boost"
+
+[node name="Button2" type="Button" parent="FactoryView/Abilities/HBoxContainer" unique_id=210363413]
+layout_mode = 2
+text = "Investigate"
+
+[node name="Button3" type="Button" parent="FactoryView/Abilities/HBoxContainer" unique_id=691329576]
+layout_mode = 2
+text = "Execute"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=667558453]
 position = Vector2(960, 540)
 
 [node name="StalinPanel" type="Panel" parent="Camera2D" unique_id=305282692]
-offset_left = 640.0
+offset_left = 616.0
 offset_top = -540.0
 offset_right = 960.0
 offset_bottom = 292.0
 
 [node name="TimePanel" type="Panel" parent="Camera2D/StalinPanel" unique_id=1728724225]
 layout_mode = 0
-offset_right = 320.0
-offset_bottom = 128.0
+offset_right = 344.0
+offset_bottom = 192.0
 
 [node name="Label" type="Label" parent="Camera2D/StalinPanel/TimePanel" unique_id=918630379]
 layout_mode = 0
@@ -198,10 +325,27 @@ text = "Time until next report"
 [node name="TimeLabel" type="Label" parent="Camera2D/StalinPanel/TimePanel" unique_id=1031621235]
 layout_mode = 0
 offset_top = 24.0
-offset_right = 320.0
+offset_right = 344.0
 offset_bottom = 128.0
 theme_override_font_sizes/font_size = 50
 text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Camera2D/StalinPanel/TimePanel" unique_id=1828366397]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 170.0
+offset_bottom = 151.0
+text = "Current Quota"
+
+[node name="Label3" type="Label" parent="Camera2D/StalinPanel/TimePanel" unique_id=604160175]
+layout_mode = 0
+offset_top = 152.0
+offset_right = 344.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 25
+text = "1000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -210,3 +354,45 @@ offset_left = -960.0
 offset_top = 292.0
 offset_right = 960.0
 offset_bottom = 540.0
+
+[node name="RealInfo" type="ColorRect" parent="Camera2D" unique_id=1031926217]
+unique_name_in_owner = true
+editor_description = "Actual Information when Stalin Investigates someone"
+offset_left = -908.0
+offset_top = -740.0
+offset_right = 564.0
+offset_bottom = -540.0
+color = Color(0.37112424, 0.38393188, 0.24738178, 1)
+script = ExtResource("7_c6tdm")
+
+[node name="Icon" type="Sprite2D" parent="Camera2D/RealInfo" unique_id=368680354]
+position = Vector2(100, 100)
+scale = Vector2(1.4375, 1.4375)
+texture = ExtResource("2_krpyv")
+
+[node name="NameLabel" type="Label" parent="Camera2D/RealInfo" unique_id=495894012]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 8.0
+offset_right = 888.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 35
+text = "Name"
+
+[node name="QuotaContainer" parent="Camera2D/RealInfo" unique_id=1859473313 instance=ExtResource("7_wwnu6")]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 64.0
+offset_right = 1440.0
+offset_bottom = 145.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/RealInfo" unique_id=1602878485]
+libraries/ = SubResource("AnimationLibrary_8y6cy")
+autoplay = &"idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1127264154]
+libraries/ = SubResource("AnimationLibrary_n8q74")
+autoplay = &"main"
+
+[connection signal="timeout" from="FactoryView/QuotaPanel/Timer" to="FactoryView/QuotaPanel" method="debug_create_container"]
+[connection signal="pressed" from="FactoryView/BackButton" to="." method="_on_back_button_pressed"]

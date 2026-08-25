@@ -18,6 +18,7 @@ script = ExtResource("1_83ca4")
 
 [node name="Background" type="ColorRect" parent="." unique_id=368775396]
 editor_description = "Turns green or red depending if they met quota or not"
+visible = false
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 256.0
@@ -73,6 +74,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OptionPanel" type="Panel" parent="." unique_id=882092964]
+visible = false
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 256.0
@@ -100,11 +102,11 @@ layout_mode = 2
 
 [node name="BoostButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=206854161]
 layout_mode = 2
-text = "100 - Boost"
+text = "₽100 - Boost"
 
 [node name="InvestigateButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=453125391]
 layout_mode = 2
-text = "200 - Investigate"
+text = "₽200 - Investigate"
 
 [node name="ExecuteButton" type="Button" parent="OptionPanel/VBoxContainer" unique_id=1558539847]
 layout_mode = 2

@@ -5,9 +5,8 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kifso"]
 
 [node name="BottomUIPanel" type="Panel" unique_id=271835098]
-offset_top = 832.0
+offset_top = -248.0
 offset_right = 1920.0
-offset_bottom = 1080.0
 
 [node name="TextChatPanel" type="Panel" parent="." unique_id=484265919]
 layout_mode = 0
@@ -80,6 +79,7 @@ offset_bottom = 168.0
 layout_mode = 2
 
 [node name="Timer" type="Timer" parent="QuotaPanel" unique_id=55621984]
+wait_time = 2.0
 autostart = true
 
 [node name="QuotaLabel" type="Label" parent="." unique_id=1856773888]

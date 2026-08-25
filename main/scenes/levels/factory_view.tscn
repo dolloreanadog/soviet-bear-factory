@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://de0uvjgn2k4sd"]
+
+[ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="1_8vbtv"]
+[ext_resource type="Script" uid="uid://dl4mow1q0u5kr" path="res://main/scripts/user_interface/factory_view.gd" id="1_im5ii"]
+[ext_resource type="Texture2D" uid="uid://be5rfacagucyv" path="res://icon.svg" id="1_x0mim"]
+[ext_resource type="PackedScene" uid="uid://dlmpsmvrvxf5u" path="res://main/scenes/user_interface/factory_owner/approve_info.tscn" id="3_c47os"]
+[ext_resource type="PackedScene" uid="uid://bqsxtkv8d3lxn" path="res://main/scenes/user_interface/factory_owner/target_select_info.tscn" id="4_2fr31"]
+[ext_resource type="Script" uid="uid://bty7dbr3wndp0" path="res://main/scripts/managers/theft_manager.gd" id="6_2fr31"]
+
+[node name="FactoryView" type="Node2D" unique_id=329452006 groups=["Players"]]
+script = ExtResource("1_im5ii")
+
+[node name="MainView" type="Node2D" parent="." unique_id=1647483728]
+
+[node name="Visual" type="Node2D" parent="MainView" unique_id=567282674]
+
+[node name="ColorRect" type="ColorRect" parent="MainView/Visual" unique_id=587068613]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.288518, 0.28851798, 0.28851798, 1)
+
+[node name="Icon" type="Sprite2D" parent="MainView/Visual" unique_id=1334949412]
+position = Vector2(192, 416)
+scale = Vector2(3, 6.5)
+texture = ExtResource("1_x0mim")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainView" unique_id=1781807411]
+offset_left = 384.0
+offset_right = 640.0
+offset_bottom = 832.0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainView/VBoxContainer" unique_id=1037437034]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainView/VBoxContainer/HBoxContainer" unique_id=276439741]
+layout_mode = 2
+text = "₽300"
+
+[node name="ProductionButton" type="Button" parent="MainView/VBoxContainer/HBoxContainer" unique_id=2009468139]
+layout_mode = 2
+text = "Increase Production"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainView/VBoxContainer" unique_id=1917752152]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainView/VBoxContainer/HBoxContainer2" unique_id=875579188]
+layout_mode = 2
+text = "₽100"
+
+[node name="ForgeButton" type="Button" parent="MainView/VBoxContainer/HBoxContainer2" unique_id=1031898631]
+layout_mode = 2
+text = "Forge Documents"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MainView/VBoxContainer" unique_id=1883591840]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainView/VBoxContainer/HBoxContainer3" unique_id=97547125]
+layout_mode = 2
+text = "₽200"
+
+[node name="SecurityButton" type="Button" parent="MainView/VBoxContainer/HBoxContainer3" unique_id=844014148]
+layout_mode = 2
+text = "Raise Security"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MainView/VBoxContainer" unique_id=728852464]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainView/VBoxContainer/HBoxContainer4" unique_id=1013782971]
+layout_mode = 2
+text = "₽200"
+
+[node name="SabatogeButton" type="Button" parent="MainView/VBoxContainer/HBoxContainer4" unique_id=1008270394]
+layout_mode = 2
+text = "Sabatoge Player"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MainView/VBoxContainer" unique_id=213601948]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainView/VBoxContainer/HBoxContainer5" unique_id=944987653]
+layout_mode = 2
+text = "₽300"
+
+[node name="StealButton" type="Button" parent="MainView/VBoxContainer/HBoxContainer5" unique_id=15625326]
+layout_mode = 2
+text = "Steal Production"
+
+[node name="ApproveInfo" parent="MainView" unique_id=1069903873 instance=ExtResource("3_c47os")]
+unique_name_in_owner = true
+
+[node name="TargetSelectInfo" parent="MainView" unique_id=354862867 instance=ExtResource("4_2fr31")]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1104664216]
+position = Vector2(960, 540)
+
+[node name="BottomUIPanel" parent="Camera2D" unique_id=271835098 instance=ExtResource("1_8vbtv")]
+offset_left = -960.0
+offset_top = 292.0
+offset_right = 960.0
+offset_bottom = 540.0
+
+[node name="StalinPanel" type="Panel" parent="Camera2D" unique_id=940495280]
+offset_left = 616.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 292.0
+
+[node name="TimePanel" type="Panel" parent="Camera2D/StalinPanel" unique_id=1837523524]
+layout_mode = 0
+offset_right = 344.0
+offset_bottom = 128.0
+
+[node name="Label" type="Label" parent="Camera2D/StalinPanel/TimePanel" unique_id=356659947]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Time until next report"
+
+[node name="TimeLabel" type="Label" parent="Camera2D/StalinPanel/TimePanel" unique_id=493858638]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 344.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 50
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TheftManager" type="Node" parent="." unique_id=948642720]
+unique_name_in_owner = true
+script = ExtResource("6_2fr31")
+
+[connection signal="no_button_pressed" from="MainView/ApproveInfo" to="." method="_on_approve_info_no_button_pressed"]
+[connection signal="yes_button_pressed" from="MainView/ApproveInfo" to="." method="_on_approve_info_yes_button_pressed"]
+[connection signal="on_loss" from="TheftManager" to="." method="_on_theft_manager_on_loss"]

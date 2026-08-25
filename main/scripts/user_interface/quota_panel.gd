@@ -10,7 +10,11 @@ const STALIN_QUOTA_CONTAINER = preload("uid://c8dna0miy8nnd")
 @onready var quota_holder: VBoxContainer = $ScrollContainer/QuotaHBoxContainer
 @onready var scroll_container: ScrollContainer = $ScrollContainer
 
+## Eventually Stalin & Factory Owner will be merged and would be a child of the GameManagerNode
 var current_report: int = 0
+
+func _ready() -> void:
+	debug_create_container()
 
 func create_stalin_container(value: int, max_value: int) -> void:
 	var quota: QuotaContainer = STALIN_QUOTA_CONTAINER.instantiate()

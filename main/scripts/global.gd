@@ -10,6 +10,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Exit"):
 		get_tree().quit()
+
+## Will be in game manager, but here for now
+func Get_Players() -> Array:
+	var array: Array
+	
+	#
+	
+	return array
