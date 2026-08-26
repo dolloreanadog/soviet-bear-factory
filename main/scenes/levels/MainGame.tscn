@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://xjgfc17crloh"]
+
+[node name="MainGame" type="Node2D" unique_id=1533948264]
+
+[node name="Lobby" type="Node2D" parent="." unique_id=52039117]
+
+[node name="StalinView" type="Node2D" parent="." unique_id=452346243]
+
+[node name="FactoryView" type="Node2D" parent="." unique_id=244533373]
+
+[node name="Spectator" type="Node2D" parent="." unique_id=1571254789]
