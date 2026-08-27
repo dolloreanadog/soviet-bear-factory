@@ -10,8 +10,18 @@ var is_stalin: bool = false
 signal player_ready()
 
 func _ready() -> void:
-	_change_name.rpc()
+	pass
+	#if is_multiplayer_authority():
+		#_change_name.rpc(Global.player_name)
 
 @rpc("any_peer","call_local", "reliable")
-func _change_name() -> void:
-	real_name = Global.player_name
+func _change_name(player_name: String) -> void:
+	real_name = player_name
+	player_ready.emit()
+
+@rpc("any_peer","call_local", "reliable")
+func assign_identity(id: int) -> void:
+	set_multiplayer_authority(id)
+	name = str(id)
+	if is_multiplayer_authority():
+		_change_name.rpc(Global.player_name)
