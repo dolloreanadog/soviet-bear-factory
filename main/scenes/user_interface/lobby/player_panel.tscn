@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b646t56seuksv"]
+
+[ext_resource type="Script" uid="uid://751bdyv7p1mm" path="res://main/scripts/user_interface/player_panel.gd" id="1_x6gp7"]
+
+[node name="PlayerPanel" type="Panel" unique_id=1675716152]
+custom_minimum_size = Vector2(704, 64)
+script = ExtResource("1_x6gp7")
+
+[node name="NameLabel" type="Label" parent="." unique_id=644495227]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 576.0
+offset_bottom = 64.0
+text = "Name"
+vertical_alignment = 1
+
+[node name="KickButton" type="Button" parent="." unique_id=1372996631]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 8.0
+offset_right = 696.0
+offset_bottom = 56.0
+text = "Kick"

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://quhdst0ar2xq"]
+
+[ext_resource type="PackedScene" uid="uid://xwnj4nnggtky" path="res://main/scenes/levels/main_menu.tscn" id="1_eeddt"]
+[ext_resource type="Script" uid="uid://5fk3m6weqm68" path="res://main/scripts/manager/bridge.gd" id="1_mlks3"]
+
+[node name="Bridge" type="Node" unique_id=1187629576]
+script = ExtResource("1_mlks3")
+
+[node name="MainMenu" parent="." unique_id=703556153 instance=ExtResource("1_eeddt")]

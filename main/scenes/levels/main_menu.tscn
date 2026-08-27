@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://xwnj4nnggtky"]
 
+[ext_resource type="Script" uid="uid://bjty55unk4fyf" path="res://main/scripts/menus/main_menu.gd" id="1_wpk3s"]
+
 [node name="MainMenu" type="Node2D" unique_id=703556153]
+script = ExtResource("1_wpk3s")
 
 [node name="Main" type="Node2D" parent="." unique_id=853542352]
 
@@ -11,40 +14,74 @@ color = Color(0.25903893, 0.43426433, 0.6797244, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main" unique_id=1372740234]
 offset_top = 192.0
-offset_right = 256.0
+offset_right = 560.0
 offset_bottom = 768.0
 theme_override_constants/separation = 16
 
-[node name="Button" type="Button" parent="Main/VBoxContainer" unique_id=351376302]
+[node name="HostButton" type="Button" parent="Main/VBoxContainer" unique_id=351376302]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Host"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer" unique_id=2004705318]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/VBoxContainer" unique_id=1651637925]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/VBoxContainer/HBoxContainer" unique_id=333874351]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer/VBoxContainer" unique_id=2004705318]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Main/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1515642687]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1789911003]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1180305626]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=875718721]
+layout_mode = 2
+text = "Name:"
+
+[node name="PlayerLineEdit" type="LineEdit" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1702472924]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+text = "Player"
+placeholder_text = "Name"
+
+[node name="ChangeButton" type="Button" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=495437918]
+layout_mode = 2
+text = "Change"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=3901728]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=1789505712]
+custom_minimum_size = Vector2(51, 0)
+layout_mode = 2
+text = "IP:"
+
+[node name="IPLineEdit" type="LineEdit" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=1515642687]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 placeholder_text = "IP"
 
-[node name="Button" type="Button" parent="Main/VBoxContainer/HBoxContainer" unique_id=1049662343]
+[node name="JoinButton" type="Button" parent="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=1049662343]
 layout_mode = 2
 text = "Join"
 
-[node name="Prelobby" type="Node2D" parent="." unique_id=1112113179]
-position = Vector2(1920, 0)
+[node name="SettingsButton" type="Button" parent="Main/VBoxContainer" unique_id=245415956]
+layout_mode = 2
+text = "Settings"
 
-[node name="ColorRect" type="ColorRect" parent="Prelobby" unique_id=1738144481]
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0.4410819, 0.39124203, 0.6187493, 1)
+[node name="ExitButton" type="Button" parent="Main/VBoxContainer" unique_id=1414783184]
+layout_mode = 2
+text = "Exit"
 
 [node name="Settings" type="Control" parent="." unique_id=1950627904]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[connection signal="pressed" from="Main/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/ChangeButton" to="." method="_on_change_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

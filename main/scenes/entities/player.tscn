@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://mhtuvanjpkj2"]
+
+[ext_resource type="Script" uid="uid://bnp7qw70upvct" path="res://main/scripts/player/player.gd" id="1_0uqlr"]
+[ext_resource type="Script" uid="uid://btvv4shhno862" path="res://main/scripts/player/stalin_manager.gd" id="2_oi764"]
+[ext_resource type="Script" uid="uid://cm7w8vxlur611" path="res://main/scripts/player/factory_manager.gd" id="3_4jlfs"]
+
+[node name="Player" type="Node" unique_id=1366115844 groups=["Players"]]
+script = ExtResource("1_0uqlr")
+
+[node name="StalinManager" type="Node" parent="." unique_id=886858824]
+script = ExtResource("2_oi764")
+
+[node name="FactoryManager" type="Node" parent="." unique_id=2022361824]
+script = ExtResource("3_4jlfs")

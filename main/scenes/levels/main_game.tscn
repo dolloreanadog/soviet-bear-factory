@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://xjgfc17crloh"]
+
+[ext_resource type="Script" uid="uid://brxsnb60j0pkw" path="res://main/scripts/manager/main_game.gd" id="1_d2ed5"]
+[ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="1_vc5o5"]
+[ext_resource type="PackedScene" uid="uid://ddnx012jb7iph" path="res://main/scenes/user_interface/text_chat_panel.tscn" id="2_ccp5f"]
+[ext_resource type="Script" uid="uid://dshdhabuevb0y" path="res://main/scenes/user_interface/stalin/stalin_view.gd" id="4_7vhnc"]
+[ext_resource type="Script" uid="uid://c88rnfoacf2o" path="res://main/scenes/user_interface/factory_view.gd" id="6_oga5u"]
+[ext_resource type="Script" uid="uid://clkulwgec7lwh" path="res://main/scenes/user_interface/spectator/spectator.gd" id="7_t18oc"]
+
+[node name="MainGame" type="Node2D" unique_id=1533948264]
+script = ExtResource("1_d2ed5")
+
+[node name="Lobby" type="Node2D" parent="." unique_id=52039117]
+
+[node name="Visual" type="Node2D" parent="Lobby" unique_id=1808668838]
+
+[node name="ColorRect" type="ColorRect" parent="Lobby/Visual" unique_id=1527287556]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.38170326, 0.38170323, 0.38170323, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Lobby" unique_id=265209379]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1856.0
+offset_bottom = 832.0
+
+[node name="PlayerListContainer" type="GridContainer" parent="Lobby/ScrollContainer" unique_id=1020825488]
+layout_mode = 2
+columns = 2
+
+[node name="ExitButton" type="Button" parent="Lobby" unique_id=4803858]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 128.0
+offset_bottom = 48.0
+text = "Exit"
+
+[node name="StartButton" type="Button" parent="Lobby" unique_id=1618104310]
+offset_left = 1728.0
+offset_top = 960.0
+offset_right = 1854.0
+offset_bottom = 1024.0
+text = "Start"
+
+[node name="TextChatPanel" parent="Lobby" unique_id=556614972 groups=["TextChat"] instance=ExtResource("2_ccp5f")]
+offset_top = 832.0
+offset_bottom = 1080.0
+
+[node name="LobbyCamera" type="Camera2D" parent="Lobby" unique_id=1447353807]
+position = Vector2(960, 540)
+
+[node name="StalinView" type="Node2D" parent="." unique_id=452346243]
+position = Vector2(1920, 0)
+script = ExtResource("4_7vhnc")
+
+[node name="ColorRect" type="ColorRect" parent="StalinView" unique_id=274958252]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.5488373, 0.2987185, 0.28320393, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="StalinView" unique_id=1409277212]
+offset_top = 1080.0
+offset_right = 1920.0
+offset_bottom = 2160.0
+color = Color(0.47556144, 0.2520082, 0.2382971, 1)
+
+[node name="StalinCamera" type="Camera2D" parent="StalinView" unique_id=1009497662]
+position = Vector2(960, 540)
+
+[node name="BottomUIPanel" parent="StalinView/StalinCamera" unique_id=1855408237 instance=ExtResource("1_vc5o5")]
+offset_left = -960.0
+offset_right = 960.0
+
+[node name="FactoryView" type="Node2D" parent="." unique_id=244533373]
+position = Vector2(3840, 0)
+script = ExtResource("6_oga5u")
+
+[node name="ColorRect" type="ColorRect" parent="FactoryView" unique_id=1636126996]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.36197487, 0.34045944, 0.6036565, 1)
+
+[node name="FactoryCamera" type="Camera2D" parent="FactoryView" unique_id=1128752677]
+position = Vector2(960, 540)
+
+[node name="BottomUIPanel" parent="FactoryView/FactoryCamera" unique_id=2079935646 instance=ExtResource("1_vc5o5")]
+offset_left = -960.0
+offset_right = 960.0
+
+[node name="SpectatorView" type="Node2D" parent="." unique_id=1571254789]
+position = Vector2(0, 1080)
+script = ExtResource("7_t18oc")
+
+[node name="ColorRect" type="ColorRect" parent="SpectatorView" unique_id=662880589]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.23031491, 0.23031494, 0.23031488, 1)
+
+[node name="SpectatorCamera" type="Camera2D" parent="SpectatorView" unique_id=316058869]
+position = Vector2(960, 541)
+
+[node name="TextChatPanel" parent="SpectatorView/SpectatorCamera" unique_id=46237616 groups=["TextChat"] instance=ExtResource("2_ccp5f")]
+offset_left = -960.0
+offset_top = 291.0
+offset_right = -384.0
+offset_bottom = 539.0
+
+[node name="PlayerGroup" type="MultiplayerSpawner" parent="." unique_id=1532093851]
+spawn_path = NodePath(".")
