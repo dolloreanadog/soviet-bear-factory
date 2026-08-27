@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://deo83hywn4hhu"]
+
+[ext_resource type="Script" uid="uid://2tdm0k3hevit" path="res://main/scripts/user_interface/quota_container.gd" id="1_43lmj"]
+[ext_resource type="StyleBox" uid="uid://4ff1cgwyyfrg" path="res://main/resources/ui/quota_style.tres" id="2_iwjiw"]
+[ext_resource type="StyleBox" uid="uid://r2vlmnemscva" path="res://main/resources/ui/quata_bar_out.tres" id="2_vrd12"]
+
+[node name="QuotaContainer" type="HBoxContainer" unique_id=500640945]
+custom_minimum_size = Vector2(1120, 54)
+offset_left = 8.0
+offset_right = 1128.0
+offset_bottom = 54.0
+script = ExtResource("1_43lmj")
+
+[node name="ReportLabel" type="Label" parent="." unique_id=71553044]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "-1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuotaBar" type="VBoxContainer" parent="." unique_id=1353475776]
+layout_mode = 2
+
+[node name="QuotaBar" type="PanelContainer" parent="QuotaBar" unique_id=222126332]
+custom_minimum_size = Vector2(1108, 40)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_vrd12")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuotaBar/QuotaBar" unique_id=907876254]
+layout_mode = 2
+
+[node name="QuotaLeft" type="PanelContainer" parent="QuotaBar/QuotaBar/HBoxContainer" unique_id=949565179]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("2_iwjiw")
+
+[node name="QuotaAmountLabel" type="Label" parent="QuotaBar" unique_id=1578084203]
+layout_mode = 2
+text = "9999/9999"
+horizontal_alignment = 1

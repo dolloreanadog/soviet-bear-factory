@@ -21,3 +21,5 @@ offset_top = 8.0
 offset_right = 696.0
 offset_bottom = 56.0
 text = "Kick"
+
+[connection signal="pressed" from="KickButton" to="." method="_on_kick_button_pressed"]

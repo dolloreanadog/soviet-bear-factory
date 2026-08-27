@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ProductionData" format=3 uid="uid://doegu2lenbq47"]
+
+[ext_resource type="Script" uid="uid://c3s6wlchyu32y" path="res://main/scripts/user_interface/quota/production_data.gd" id="1_mebuf"]
+
+[resource]
+script = ExtResource("1_mebuf")
+metadata/_custom_type_script = "uid://c3s6wlchyu32y"

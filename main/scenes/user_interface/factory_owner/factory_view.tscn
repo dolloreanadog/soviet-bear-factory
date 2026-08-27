@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://02ek5y2x33ly"]
+
+[ext_resource type="Script" uid="uid://c88rnfoacf2o" path="res://main/scripts/user_interface/factory_owner/factory_view.gd" id="1_xfabt"]
+[ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="2_x07jf"]
+
+[node name="FactoryView" type="Node2D" unique_id=1217388712]
+script = ExtResource("1_xfabt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=746700539]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.36197487, 0.34045944, 0.6036565, 1)
+
+[node name="FactoryCamera" type="Camera2D" parent="." unique_id=561052534]
+position = Vector2(960, 540)
+
+[node name="BottomUIPanel" parent="FactoryCamera" unique_id=1855408237 instance=ExtResource("2_x07jf")]
+offset_left = -960.0
+offset_right = 960.0

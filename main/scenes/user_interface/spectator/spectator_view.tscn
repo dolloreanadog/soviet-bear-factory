@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dyiwhfgwxlhgb"]
+
+[ext_resource type="Script" uid="uid://clkulwgec7lwh" path="res://main/scenes/user_interface/spectator/spectator.gd" id="1_vabei"]
+[ext_resource type="PackedScene" uid="uid://ddnx012jb7iph" path="res://main/scenes/user_interface/text_chat_panel.tscn" id="2_kh68j"]
+
+[node name="SpectatorView" type="Node2D" unique_id=1908967691]
+script = ExtResource("1_vabei")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=459144243]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.23031491, 0.23031494, 0.23031488, 1)
+
+[node name="SpectatorCamera" type="Camera2D" parent="." unique_id=1179419428]
+position = Vector2(960, 541)
+
+[node name="TextChatPanel" parent="SpectatorCamera" unique_id=556614972 groups=["TextChat"] instance=ExtResource("2_kh68j")]
+offset_left = -960.0
+offset_top = 291.0
+offset_right = -384.0
+offset_bottom = 539.0
+metadata/_edit_use_anchors_ = true

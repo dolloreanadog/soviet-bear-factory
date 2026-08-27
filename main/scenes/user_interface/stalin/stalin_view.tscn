@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://f6cnpukxq0mr"]
+
+[ext_resource type="Script" uid="uid://dshdhabuevb0y" path="res://main/scenes/user_interface/stalin/stalin_view.gd" id="1_y8gv1"]
+[ext_resource type="Texture2D" uid="uid://du8e4tulhmc80" path="res://main/assets/textures/seizethemeans_portaits_stalin.png" id="2_csrwb"]
+[ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="3_7ens1"]
+
+[node name="StalinView" type="Node2D" unique_id=1704629776]
+script = ExtResource("1_y8gv1")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1369202566]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.5488373, 0.2987185, 0.28320393, 1)
+
+[node name="Stalin" type="Sprite2D" parent="." unique_id=1324377957]
+position = Vector2(311.99994, 600)
+scale = Vector2(0.5891667, 0.5891667)
+texture = ExtResource("2_csrwb")
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1576662945]
+offset_top = 1080.0
+offset_right = 1920.0
+offset_bottom = 2160.0
+color = Color(0.47556144, 0.2520082, 0.2382971, 1)
+
+[node name="StalinCamera" type="Camera2D" parent="." unique_id=582649511]
+position = Vector2(960, 540)
+
+[node name="BottomUIPanel" parent="StalinCamera" unique_id=1855408237 instance=ExtResource("3_7ens1")]
+offset_left = -960.0
+offset_right = 960.0

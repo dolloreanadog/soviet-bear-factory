@@ -2,23 +2,42 @@ extends Node2D
 class_name MainGame
 
 @onready var player_group: Node = $PlayerGroup
-@onready var lobby: Node2D = $Lobby
-@onready var stalin_view: StalinView = $StalinView
-@onready var factory_view: FactoryView = $FactoryView
-@onready var spectator_view: SpectatorView = $SpectatorView
+@onready var lobby: Node2D = %Lobby
+@onready var stalin_view: StalinView = %StalinView
+@onready var factory_view: FactoryView = %FactoryView
+@onready var spectator_view: SpectatorView = %SpectatorView
+@onready var lobby_camera: Camera2D = $Lobby/LobbyCamera
+
+@onready var report_timer: Timer = $ReportTimer
 @onready var player_list_container: GridContainer = $Lobby/ScrollContainer/PlayerListContainer
+@onready var start_button: Button = $Lobby/StartButton
 # Stalin Panel
 # Factory Panel
 
 const PLAYER_PANEL = preload("uid://b646t56seuksv")
 const PLAYER = preload("uid://mhtuvanjpkj2")
 
+## How much time it takes for stalin to get new report
+@export var report_time: int = 120
+
+var current_report_time: int = -1
+
 var factory_group: Array[int] = []
 var stalin_player_id: int = -1
+
+
+enum CameraViews {LOBBY, STALIN, FACTORY, SPECTATOR}
+var current_camera: CameraViews = CameraViews.LOBBY
+
+signal stalin_chosen()
+signal update_report_time(time: int)
+signal request_new_report()
 
 func _ready() -> void:
 	if !multiplayer.has_multiplayer_peer(): 
 		Global.go_to_game()
+	
+	start_button.disabled = true
 	
 	if NetworkManager.is_host: # is_server() is not an alternative to host, just need to assign a host
 		print("Joined as server")
@@ -30,12 +49,16 @@ func _ready() -> void:
 		multiplayer.connected_to_server.connect(_server_connected)
 		multiplayer.server_disconnected.connect(_server_disconnected)
 		multiplayer.connection_failed.connect(_connection_failed)
-		
-	print("Check list: %s" % [multiplayer.get_unique_id()])
-	print("Check list: %s" % [multiplayer.get_peers()])
+	
+	update_report_time.connect(stalin_view.bottom_ui_panel._update_report_time)
+	update_report_time.connect(factory_view.bottom_ui_panel._update_report_time)
 
 func get_players_as_int() -> Array[int]:
 	var players: Array[int]
+	var players_object: Array[Node] = player_group.get_children()
+	for player: Player in players_object:
+		players.push_back(int(player.name))
+	print("Check list: %s" % [players])
 	return players
 
 func get_players_as_player() -> Array[Node]:
@@ -56,49 +79,67 @@ func give_name() -> String:
 
 
 func server_choose_stalin() -> void:
-	if !multiplayer.is_server(): return
-	var peers: PackedInt32Array = multiplayer.get_peers()
+	if !NetworkManager.is_host: return
+	var peers: Array[int] = get_players_as_int()
 	var peer: int = peers[randi_range(0, peers.size() - 1)]
 	sync_choose_stalin.rpc(peer)
-	
 
 @rpc("any_peer", "call_local", "reliable")
 func sync_choose_stalin(peer_id: int) -> void: # Also includes host as they are also a player
 	get_player_as_player(peer_id).is_stalin = true
+	stalin_player_id = peer_id
+	stalin_chosen.emit()
 
 @rpc("any_peer", "call_local", "reliable")
 func start_game() -> void:
+	print("started game")
 	multiplayer.multiplayer_peer.refuse_new_connections = true
-	server_choose_stalin()
+	if NetworkManager.is_host:
+		server_choose_stalin()
+	
 	# Then change the view depending if they are stalin.
 	# Maybe use for to put them in respective
 
+func put_into_lobby_view() -> void:
+	lobby_camera.make_current()
 
-## Put the player as stalin
-@rpc("any_peer", "call_local", "reliable")
-func put_into_stalin_view(id: int) -> void:
-	set_stalin_view.rpc_id(id)
+func put_into_stalin_view() -> void:
+	stalin_view.stalin_camera.make_current()
 
-func set_stalin_view() -> void:
-	pass
 
-@rpc("any_peer", "call_local", "reliable")
-func put_into_factory_view(id: int) -> void:
-	set_factory_view.rpc_id(id)
+func put_into_factory_view() -> void:
+	factory_view.factory_camera.make_current()
 
-func set_factory_view() -> void:
-	pass
 
-@rpc("any_peer", "call_local", "reliable")
-func put_into_spectator_view(id: int) -> void:
-	set_spectator_view.rpc_id(id)
-
-func set_spectator_view() -> void:
-	pass
+func put_into_spectator_view() -> void:
+	spectator_view.spectator_camera.make_current()
 
 @rpc("any_peer", "call_local", "reliable")
 func end_game() -> void:
 	multiplayer.multiplayer_peer.refuse_new_connections = false
+	start_button.disabled = false
+	report_timer.stop()
+
+@rpc("any_peer", "call_local", "reliable")
+func request_report() -> void:
+	request_new_report.emit()
+
+## This should only be an rpc_id
+@rpc("any_peer", "call_local", "reliable")
+func set_camera_view(view: CameraViews) -> void:
+	current_camera = view
+	match view: # We have camera's linked
+		CameraViews.LOBBY:
+			put_into_lobby_view()
+		CameraViews.STALIN:
+			put_into_stalin_view()
+		CameraViews.FACTORY:
+			put_into_factory_view()
+		CameraViews.SPECTATOR:
+			put_into_spectator_view()
+		_:
+			pass
+
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -112,6 +153,14 @@ func refresh_player_panels() -> void:
 		
 		player_list_container.add_child(player_panel)
 		player_panel.name_label.text = player.real_name
+		player_panel.owner_id = int(player.name)
+		player_panel.show_hide_kick()
+	
+	if NetworkManager.is_host:
+		if get_players_as_player().size() >= 2:
+			start_button.disabled = false
+		else:
+			start_button.disabled = true
 
 func _add_player(id: int) -> void:
 	if !multiplayer.is_server(): return
@@ -120,6 +169,7 @@ func _add_player(id: int) -> void:
 	player_group.add_child(player)
 	
 	player.player_ready.connect(_player_is_ready)
+	request_new_report.connect(player._deal_new_report)
 	
 	player.assign_identity.rpc(id)
 
@@ -148,6 +198,7 @@ func _server_connected() -> void:
 func _server_disconnected() -> void:
 	NetworkManager.leave_server()
 	Global.go_to_main_menu()
+	queue_free()
 
 func _connection_failed() -> void:
 	pass
@@ -156,7 +207,42 @@ func _connection_failed() -> void:
 func _on_exit_button_pressed() -> void:
 	NetworkManager.leave_server() # Should trigger [method MainGame._remove_player]
 	Global.go_to_main_menu()
+	queue_free()
 
 
 func _on_start_button_pressed() -> void:
-	pass # Replace with function body.
+	start_button.disabled = true
+	start_game()
+
+
+func _on_stalin_chosen() -> void:
+	print("found stalin")
+	
+	if NetworkManager.is_host:
+		for id: int in get_players_as_int():
+			if id != stalin_player_id:
+				set_camera_view.rpc_id(id, CameraViews.FACTORY)
+				factory_group.clear()
+				factory_group.append(id)
+			else:
+				set_camera_view.rpc_id(id, CameraViews.STALIN)
+			
+			var player: Player = get_player_as_player(id)
+			player.ready_player.rpc_id(id)
+			
+			report_timer.start()
+			current_report_time = report_time
+		
+		#for player: Player in get_players_as_player():
+			#
+
+
+func _on_report_timer_timeout() -> void:
+	if NetworkManager.is_host:
+		current_report_time -= 1
+		update_report_time.emit(current_report_time)
+		
+		if report_time <= 0:
+			current_report_time = report_time
+			request_new_report.emit()
+			

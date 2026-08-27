@@ -29,6 +29,7 @@ offset_bottom = 216.0
 bbcode_enabled = true
 text = "Welcome to Chat!
 "
+scroll_following = true
 
 [connection signal="text_submitted" from="TextLineEdit" to="." method="_on_text_line_edit_text_submitted"]
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
