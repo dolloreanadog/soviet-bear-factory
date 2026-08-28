@@ -35,6 +35,7 @@ func _ready() -> void:
 	ruble_changed.connect(stalin_view.bottom_ui_panel._update_ruble)
 	
 	factory_view.action_selected.connect(factory_manager.select_action)
+	factory_view.approval_doc.accept_button_pressed.connect(factory_manager._action_selected)
 
 @rpc("any_peer","call_local", "reliable")
 func _change_name(player_name: String) -> void:

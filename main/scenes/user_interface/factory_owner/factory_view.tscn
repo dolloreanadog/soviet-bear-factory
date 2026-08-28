@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://c88rnfoacf2o" path="res://main/scripts/user_interface/factory_owner/factory_view.gd" id="1_xfabt"]
 [ext_resource type="Texture2D" uid="uid://b70iepkvglyj2" path="res://main/assets/textures/seizethemeans_portaits_seal.png" id="2_lk7ot"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="2_x07jf"]
-[ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="3_lk7ot"]
+[ext_resource type="PackedScene" uid="uid://d22fhbv4h6jsr" path="res://main/scenes/user_interface/factory_owner/approval_doc.tscn" id="3_i715i"]
+[ext_resource type="PackedScene" uid="uid://djcb5mcicdxss" path="res://main/scenes/user_interface/factory_owner/target_selection_doc.tscn" id="4_0kgqg"]
 
 [node name="FactoryView" type="Node2D" unique_id=1217388712]
 script = ExtResource("1_xfabt")
@@ -44,23 +45,10 @@ text = "Sabatoge Player"
 layout_mode = 2
 text = "Steal Production"
 
-[node name="ApprovalDoc" type="TextureRect" parent="." unique_id=1576623064]
+[node name="ApprovalDoc" parent="." unique_id=538900754 instance=ExtResource("3_i715i")]
 visible = false
-offset_left = 472.0
-offset_top = -24.0
-offset_right = 1520.0
-offset_bottom = 1024.0
-texture = ExtResource("3_lk7ot")
-expand_mode = 1
 
-[node name="TargetSelectionDoc" type="TextureRect" parent="." unique_id=1388212975]
-visible = false
-offset_left = 472.0
-offset_top = -24.0
-offset_right = 1520.0
-offset_bottom = 1024.0
-texture = ExtResource("3_lk7ot")
-expand_mode = 1
+[node name="TargetSelectionDoc" parent="." unique_id=1739549583 instance=ExtResource("4_0kgqg")]
 
 [node name="FactoryCamera" type="Camera2D" parent="." unique_id=561052534]
 position = Vector2(960, 540)

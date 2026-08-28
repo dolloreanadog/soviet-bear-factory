@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://djcb5mcicdxss"]
+
+[ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="1_mhlri"]
+
+[node name="TargetSelectionDoc" type="TextureRect" unique_id=1739549583]
+visible = false
+offset_left = 472.0
+offset_top = -24.0
+offset_right = 1520.0
+offset_bottom = 1024.0
+texture = ExtResource("1_mhlri")
+expand_mode = 1

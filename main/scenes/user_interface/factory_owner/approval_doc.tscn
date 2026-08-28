@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://d22fhbv4h6jsr"]
+
+[ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="1_y726o"]
+[ext_resource type="StyleBox" uid="uid://bov8uu5dbub2" path="res://main/resources/ui/approval.tres" id="2_4lvne"]
+[ext_resource type="Script" uid="uid://j2fxxrpn32ym" path="res://main/scripts/user_interface/factory_owner/approval_doc.gd" id="2_f7n23"]
+[ext_resource type="Texture2D" uid="uid://dvocftedc11sm" path="res://main/assets/textures/seizethemeans_icon_256_yes.png" id="4_5j2fl"]
+[ext_resource type="Texture2D" uid="uid://cjsl1tu8t3vji" path="res://main/assets/textures/seizethemeans_icon_256_no.png" id="5_l4i3x"]
+
+[node name="ApprovalDoc" type="TextureRect" unique_id=538900754]
+offset_left = 472.0
+offset_top = -24.0
+offset_right = 1520.0
+offset_bottom = 1024.0
+texture = ExtResource("1_y726o")
+expand_mode = 1
+script = ExtResource("2_f7n23")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1173439929]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 88.0
+offset_right = 808.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0.22926119, 0.198069, 0.1315544, 1)
+theme_override_font_sizes/font_size = 43
+text = "Title"
+autowrap_mode = 3
+
+[node name="AcceptButton" type="PanelContainer" parent="." unique_id=780488004]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 280.0
+offset_right = 488.0
+offset_bottom = 536.0
+theme_override_styles/panel = ExtResource("2_4lvne")
+
+[node name="DeclineButton" type="PanelContainer" parent="." unique_id=828488876]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 280.0
+offset_right = 792.0
+offset_bottom = 536.0
+theme_override_styles/panel = ExtResource("2_4lvne")
+
+[node name="Label" type="Label" parent="." unique_id=2026798031]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 536.0
+offset_right = 488.0
+offset_bottom = 559.0
+text = "Approve"
+
+[node name="Label2" type="Label" parent="." unique_id=1513164533]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 536.0
+offset_right = 792.0
+offset_bottom = 559.0
+text = "Decline"
+
+[node name="YesTexture" type="Sprite2D" parent="." unique_id=978823594]
+position = Vector2(368, 408.00003)
+rotation = -0.58817595
+texture = ExtResource("4_5j2fl")
+
+[node name="NoTexture" type="Sprite2D" parent="." unique_id=1162276343]
+position = Vector2(664, 392)
+rotation = 0.06981317
+texture = ExtResource("5_l4i3x")
+
+[node name="Blocker" type="Control" parent="." unique_id=363816951]
+visible = false
+anchors_preset = 0
+offset_left = 240.0
+offset_top = 272.0
+offset_right = 808.0
+offset_bottom = 568.0
+
+[connection signal="gui_input" from="AcceptButton" to="." method="_on_accept_button_gui_input"]
+[connection signal="gui_input" from="DeclineButton" to="." method="_on_decline_button_gui_input"]

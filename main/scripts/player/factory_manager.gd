@@ -36,9 +36,11 @@ var lost_production: int = 0:
 var stolen_production: int = 0:
 	set(value):
 		stolen_production = maxi(0, lost_production)
+		update_current_info()
 var fake_production: int = 0:
 	set(value):
 		fake_production = maxi(0, lost_production)
+		update_current_info()
 var total_production: int:
 	get():
 		var total: int = actual_production + stolen_production + fake_production
@@ -102,37 +104,45 @@ func select_action(action: ActionSelection) -> void:
 	match action:
 		ActionSelection.PRODUCE:
 			current_action = ActionSelection.PRODUCE
-			player.decrease_ruble(production_cost)
+			player.factory_view.open_approval("Increase Production")
+			#player.decrease_ruble(production_cost) # TODO: Remove this, approve this in approval
 			#open_approval("Increase Production")
 		ActionSelection.FORGE:
 			current_action = ActionSelection.FORGE
-			player.decrease_ruble(forge_cost)
+			player.factory_view.open_approval("Forge Documents")
+			#player.decrease_ruble(forge_cost)
 			#open_approval("Forge Documents")
 		ActionSelection.SECURITY:
 			current_action = ActionSelection.SECURITY
-			player.decrease_ruble(security_cost)
+			player.factory_view.open_approval("Raise Security")
+			#player.decrease_ruble(security_cost)
 			#open_approval("Raise Security")
 		ActionSelection.SABATOGE:
 			current_action = ActionSelection.SABATOGE
-			player.decrease_ruble(sabatoge_cost)
+			player.factory_view.open_approval("Sabatoge Another")
+			#player.decrease_ruble(sabatoge_cost)
 			#open_target_selection("Sabatoge")
 		ActionSelection.STEAL:
 			current_action = ActionSelection.STEAL
-			player.decrease_ruble(steal_cost)
+			player.factory_view.open_approval("Steal Production")
+			#player.decrease_ruble(steal_cost)
 			#open_target_selection("Steal")
 		_:
 			pass
 	
-	do_nontarget_action() # TODO: Temporary, until approval page is done
+	#do_nontarget_action() # TODO: Temporary, until approval page is done
 
 func do_nontarget_action() -> void:
 	match current_action:
 		ActionSelection.PRODUCE:
 			real_production += production_increase_amount
+			player.decrease_ruble(production_cost)
 		ActionSelection.FORGE:
 			fake_production += forging_increase_amount
+			player.decrease_ruble(forge_cost)
 		ActionSelection.SECURITY:
 			theft_manager.theft_protection_level += 1
+			player.decrease_ruble(security_cost)
 		_:
 			pass
 
@@ -175,4 +185,9 @@ func check_buttons_available() -> void:
 		player.factory_view.steal_button.disabled = false
 	else:
 		player.factory_view.steal_button.disabled = true
-	
+
+func _action_selected() -> void:
+	do_nontarget_action()
+
+func _target_selected() -> void:
+	pass
