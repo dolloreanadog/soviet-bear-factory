@@ -4,13 +4,13 @@ class_name Player
 var real_name: String = "Player"
 var is_stalin: bool = false
 
-
 var main_game: MainGame
 var lobby: Node2D
 var stalin_view: StalinView
 var factory_view: FactoryView
 var spectator_view: SpectatorView
 
+@onready var pay_timer: Timer = $FactoryManager/PayTimer
 @onready var stalin_manager: StalinManager = $StalinManager
 @onready var factory_manager: FactoryManager = $FactoryManager
 
@@ -80,7 +80,20 @@ func ready_player() -> void:
 		ruble_changed.emit(ruble)
 
 func _deal_new_report() -> void:
+	_new_report.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func _new_report() -> void:
+	if !is_multiplayer_authority(): return
 	if is_stalin:
-		pass
+		increase_ruble(500)
 	else:
-		pass
+		factory_manager.create_quota_bar()
+
+
+
+func _on_pay_timer_timeout() -> void:
+	if !is_multiplayer_authority(): return
+	if is_stalin: return
+	
+	increase_ruble(100)

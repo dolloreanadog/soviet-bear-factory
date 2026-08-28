@@ -25,5 +25,10 @@ script = ExtResource("3_4jlfs")
 [node name="TheftManager" type="Node" parent="FactoryManager" unique_id=277014535]
 script = ExtResource("4_4jlfs")
 
+[node name="PayTimer" type="Timer" parent="FactoryManager" unique_id=1865869513]
+wait_time = 5.0
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1619610933]
 replication_config = SubResource("SceneReplicationConfig_4jlfs")
+
+[connection signal="timeout" from="FactoryManager/PayTimer" to="." method="_on_pay_timer_timeout"]

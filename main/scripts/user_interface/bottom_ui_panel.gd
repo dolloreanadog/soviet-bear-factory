@@ -4,6 +4,8 @@ class_name BottomUIPanel
 @onready var text_chat_panel: TextChatPanel = $TextChatPanel
 @onready var ruble_label: Label = $RublePanel/RubleLabel
 @onready var report_time_label: Label = $QuotaPanel/ReportTimeLabel
+@onready var report_container: VBoxContainer = $Panel/ScrollContainer/ReportContainer
+
 
 func _update_ruble(amount: int) -> void:
 	ruble_label.text = "₽%s" % [str(amount)]

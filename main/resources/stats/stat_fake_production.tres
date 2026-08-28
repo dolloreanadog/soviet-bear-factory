@@ -1,7 +1,19 @@
 [gd_resource type="Resource" script_class="ProductionData" format=3 uid="uid://b8fs0i34xaw0e"]
 
 [ext_resource type="Script" uid="uid://c3s6wlchyu32y" path="res://main/scripts/user_interface/quota/production_data.gd" id="1_88oa2"]
+[ext_resource type="Script" uid="uid://bsd4imakfrcxg" path="res://main/scripts/user_interface/quota/stat.gd" id="2_lqejk"]
+
+[sub_resource type="PlaceholderTexture3D" id="PlaceholderTexture3D_h1vas"]
+
+[sub_resource type="Resource" id="Resource_vrd12"]
+script = ExtResource("2_lqejk")
+name = "Fake"
+color = Color(0.40924624, 0.15588635, 0.44646758, 1)
+icon = SubResource("PlaceholderTexture3D_h1vas")
+metadata/_custom_type_script = "uid://bsd4imakfrcxg"
 
 [resource]
 script = ExtResource("1_88oa2")
+stat = SubResource("Resource_vrd12")
+min_value = 0.0
 metadata/_custom_type_script = "uid://c3s6wlchyu32y"

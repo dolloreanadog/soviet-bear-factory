@@ -1,6 +1,8 @@
 extends Node
 class_name FactoryManager
 
+const QUOTA_CONTAINER = preload("uid://deo83hywn4hhu")
+
 @onready var player: Player = get_parent()
 @onready var theft_manager: TheftManager = $TheftManager
 
@@ -42,9 +44,44 @@ enum ActionSelection {
 	}
 var current_action: ActionSelection
 
+var current_quota_container: QuotaContainer
+
+signal real_production_changed(amount: int)
+signal fake_production_changed(amount: int)
+signal stolen_production_changed(amount: int)
 
 func _ready() -> void:
 	pass
 
+func get_current_quota() -> int:
+	@warning_ignore("integer_division")
+	var quota: int = player.main_game.current_total_quota / player.main_game.get_players_as_int().size()
+	return quota
+
 func create_quota_bar() -> void:
-	pass
+	if !is_multiplayer_authority(): return
+	if player.is_stalin: return
+	print("Create Factory Quota Bar")
+	if is_instance_valid(current_quota_container):
+		real_production_changed.disconnect(current_quota_container._real_changed)
+		fake_production_changed.disconnect(current_quota_container._fake_changed)
+		stolen_production_changed.disconnect(current_quota_container._stolen_changed)
+	
+	var quota_container: QuotaContainer = QUOTA_CONTAINER.instantiate()
+	current_quota_container = quota_container
+	
+	player.main_game.factory_view.bottom_ui_panel.report_container.add_child(quota_container)
+	player.main_game.factory_view.bottom_ui_panel.report_container.move_child(quota_container, 0)
+	quota_container.setup(player.main_game.current_report, player.factory_manager.get_current_quota())
+	
+	
+	real_production_changed.connect(quota_container._real_changed)
+	fake_production_changed.connect(quota_container._fake_changed)
+	stolen_production_changed.connect(quota_container._stolen_changed)
+	
+	update_current_info()
+
+func update_current_info() -> void:
+	real_production_changed.emit(real_production)
+	fake_production_changed.emit(fake_production)
+	stolen_production_changed.emit(stolen_production)

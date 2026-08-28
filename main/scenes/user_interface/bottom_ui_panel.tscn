@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://ddnx012jb7iph" path="res://main/scenes/user_interface/text_chat_panel.tscn" id="1_3fqbh"]
 [ext_resource type="Script" uid="uid://dngb2dj6fypnv" path="res://main/scripts/user_interface/bottom_ui_panel.gd" id="1_p2u0l"]
-[ext_resource type="PackedScene" uid="uid://deo83hywn4hhu" path="res://main/scenes/user_interface/quota_container.tscn" id="3_t3tm4"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kifso"]
 
@@ -87,8 +86,5 @@ offset_left = 8.0
 offset_right = 1128.0
 offset_bottom = 176.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1729697819]
+[node name="ReportContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1729697819]
 layout_mode = 2
-
-[node name="QuotaContainer" parent="Panel" unique_id=500640945 instance=ExtResource("3_t3tm4")]
-layout_mode = 0

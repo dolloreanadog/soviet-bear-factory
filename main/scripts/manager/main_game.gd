@@ -19,12 +19,14 @@ const PLAYER = preload("uid://mhtuvanjpkj2")
 
 ## How much time it takes for stalin to get new report
 @export var report_time: int = 120
+@export var initial_total_quota = 1000
 
 var current_report_time: int = -1
+var current_report: int = 0
+@export var current_total_quota: int = 500
 
 var factory_group: Array[int] = []
 var stalin_player_id: int = -1
-
 
 enum CameraViews {LOBBY, STALIN, FACTORY, SPECTATOR}
 var current_camera: CameraViews = CameraViews.LOBBY
@@ -95,10 +97,22 @@ func start_game() -> void:
 	print("started game")
 	multiplayer.multiplayer_peer.refuse_new_connections = true
 	if NetworkManager.is_host:
+		current_report = 0
 		server_choose_stalin()
 	
 	# Then change the view depending if they are stalin.
 	# Maybe use for to put them in respective
+
+
+@rpc("any_peer", "call_local", "reliable")
+func end_game() -> void:
+	multiplayer.multiplayer_peer.refuse_new_connections = false
+	if NetworkManager.is_host:
+		start_button.disabled = false
+		for player: Player in get_players_as_player():
+			player.pay_timer.stop()
+	report_timer.stop()
+
 
 func put_into_lobby_view() -> void:
 	lobby_camera.make_current()
@@ -114,15 +128,17 @@ func put_into_factory_view() -> void:
 func put_into_spectator_view() -> void:
 	spectator_view.spectator_camera.make_current()
 
-@rpc("any_peer", "call_local", "reliable")
-func end_game() -> void:
-	multiplayer.multiplayer_peer.refuse_new_connections = false
-	start_button.disabled = false
-	report_timer.stop()
+
 
 @rpc("any_peer", "call_local", "reliable")
 func request_report() -> void:
+	print("%s: emit requesting report" % [multiplayer.multiplayer_peer]) 
 	request_new_report.emit()
+
+@rpc("any_peer", "call_local", "reliable")
+func get_next_total_quota() -> void:
+	current_total_quota *= 2
+
 
 ## This should only be an rpc_id
 @rpc("any_peer", "call_local", "reliable")
@@ -170,6 +186,7 @@ func _add_player(id: int) -> void:
 	
 	player.player_ready.connect(_player_is_ready)
 	request_new_report.connect(player._deal_new_report)
+	print("%s is connected: %s" % [player, request_new_report.is_connected(player._deal_new_report)])
 	
 	player.assign_identity.rpc(id)
 
@@ -219,6 +236,9 @@ func _on_stalin_chosen() -> void:
 	print("found stalin")
 	
 	if NetworkManager.is_host:
+		report_timer.start()
+		report()
+		
 		for id: int in get_players_as_int():
 			if id != stalin_player_id:
 				set_camera_view.rpc_id(id, CameraViews.FACTORY)
@@ -229,20 +249,26 @@ func _on_stalin_chosen() -> void:
 			
 			var player: Player = get_player_as_player(id)
 			player.ready_player.rpc_id(id)
-			
-			report_timer.start()
-			current_report_time = report_time
 		
-		#for player: Player in get_players_as_player():
-			#
+		for player: Player in get_players_as_player():
+			player.pay_timer.start()
 
 
 func _on_report_timer_timeout() -> void:
 	if NetworkManager.is_host:
 		current_report_time -= 1
+		
 		update_report_time.emit(current_report_time)
 		
-		if report_time <= 0:
-			current_report_time = report_time
-			request_new_report.emit()
-			
+		if current_report_time <= 0:
+			print("Time below 0")
+			report()
+
+
+func report() -> void:
+	if !NetworkManager.is_host: return
+	print("reporting")
+	current_report_time = report_time
+	current_report += 1
+	get_next_total_quota.rpc()
+	request_report.rpc() # For some reason it is stopping here
