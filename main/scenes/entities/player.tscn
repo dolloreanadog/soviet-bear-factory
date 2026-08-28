@@ -9,9 +9,12 @@
 properties/0/path = NodePath(".:ruble")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("FactoryManager:initial_production")
+properties/1/path = NodePath("FactoryManager:real_production")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("FactoryManager/TheftManager:theft_protection_level")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="Node" unique_id=1366115844 groups=["Players"]]
 script = ExtResource("1_0uqlr")

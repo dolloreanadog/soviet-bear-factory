@@ -35,9 +35,12 @@ layout_mode = 2
 [node name="QuotaLeft" type="PanelContainer" parent="QuotaBar/QuotaBar/HBoxContainer" unique_id=949565179]
 layout_mode = 2
 size_flags_horizontal = 3
+offset_transform_enabled = true
 theme_override_styles/panel = ExtResource("2_iwjiw")
 
 [node name="QuotaAmountLabel" type="Label" parent="QuotaBar" unique_id=1578084203]
 layout_mode = 2
 text = "9999/9999"
 horizontal_alignment = 1
+
+[connection signal="stat_data_added" from="." to="QuotaBar/QuotaBar" method="add_stat_data"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0wpsfjtbrfy4"
-path="res://.godot/imported/seizethemeans_icon_630.jpg-3b4beee4b8f3ea560635c4afea5029c7.ctex"
+uid="uid://dvocftedc11sm"
+path="res://.godot/imported/seizethemeans_icon_256_yes.png-6cb0b039b01d7e181784c99e1ebb371f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://seizethemeans_icon_630.jpg"
-dest_files=["res://.godot/imported/seizethemeans_icon_630.jpg-3b4beee4b8f3ea560635c4afea5029c7.ctex"]
+source_file="res://main/assets/textures/seizethemeans_icon_256_yes.png"
+dest_files=["res://.godot/imported/seizethemeans_icon_256_yes.png-6cb0b039b01d7e181784c99e1ebb371f.ctex"]
 
 [params]
 

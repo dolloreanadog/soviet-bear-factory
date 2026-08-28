@@ -30,5 +30,6 @@ func add_stat_data(stat_data: ProductionData) -> void:
 			return
 	stat_container = PRODUCTION_CONTAINER.instantiate()
 	h_box_container.add_child(stat_container)
+	h_box_container.move_child(stat_container, 0)
 	stat_container.stat_data = stat_data
 	stat_container.value_changed.connect(_on_stat_container_value_changed)

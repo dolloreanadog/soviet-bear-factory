@@ -34,6 +34,7 @@ func _ready() -> void:
 	ruble_changed.connect(factory_view.bottom_ui_panel._update_ruble)
 	ruble_changed.connect(stalin_view.bottom_ui_panel._update_ruble)
 	
+	factory_view.action_selected.connect(factory_manager.select_action)
 
 @rpc("any_peer","call_local", "reliable")
 func _change_name(player_name: String) -> void:
@@ -90,10 +91,12 @@ func _new_report() -> void:
 	else:
 		factory_manager.create_quota_bar()
 
-
-
 func _on_pay_timer_timeout() -> void:
+	if NetworkManager.is_host:
+		_give_factory_pay.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func _give_factory_pay() -> void:
 	if !is_multiplayer_authority(): return
 	if is_stalin: return
-	
 	increase_ruble(100)

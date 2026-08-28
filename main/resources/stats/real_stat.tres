@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://doylyrxfo8wqf"]
+
+[ext_resource type="Script" uid="uid://bsd4imakfrcxg" path="res://main/scripts/user_interface/quota/stat.gd" id="1_bmglb"]
+
+[sub_resource type="PlaceholderTexture3D" id="PlaceholderTexture3D_0a1u2"]
+
+[resource]
+script = ExtResource("1_bmglb")
+name = "Real"
+color = Color(0.13109794, 0.58634317, 0.21736115, 1)
+icon = SubResource("PlaceholderTexture3D_0a1u2")
+metadata/_custom_type_script = "uid://bsd4imakfrcxg"

@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://02ek5y2x33ly"]
 
 [ext_resource type="Script" uid="uid://c88rnfoacf2o" path="res://main/scripts/user_interface/factory_owner/factory_view.gd" id="1_xfabt"]
+[ext_resource type="Texture2D" uid="uid://b70iepkvglyj2" path="res://main/assets/textures/seizethemeans_portaits_seal.png" id="2_lk7ot"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="2_x07jf"]
+[ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="3_lk7ot"]
 
 [node name="FactoryView" type="Node2D" unique_id=1217388712]
 script = ExtResource("1_xfabt")
@@ -11,9 +13,64 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.36197487, 0.34045944, 0.6036565, 1)
 
+[node name="SeizethemeansPortaitsSeal" type="Sprite2D" parent="." unique_id=522388330]
+position = Vector2(312.00003, 704)
+scale = Vector2(0.5866667, 0.5866667)
+texture = ExtResource("2_lk7ot")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=616642978]
+offset_left = 704.0
+offset_top = 192.0
+offset_right = 960.0
+offset_bottom = 704.0
+
+[node name="ProductionButton" type="Button" parent="VBoxContainer" unique_id=642240024]
+layout_mode = 2
+text = "Increase Production"
+
+[node name="ForgeButton" type="Button" parent="VBoxContainer" unique_id=760174969]
+layout_mode = 2
+text = "Forge Documents"
+
+[node name="SecurityButton" type="Button" parent="VBoxContainer" unique_id=1425734808]
+layout_mode = 2
+text = "Raise Security"
+
+[node name="SabatogeButton" type="Button" parent="VBoxContainer" unique_id=1851773937]
+layout_mode = 2
+text = "Sabatoge Player"
+
+[node name="StealButton" type="Button" parent="VBoxContainer" unique_id=732969306]
+layout_mode = 2
+text = "Steal Production"
+
+[node name="ApprovalDoc" type="TextureRect" parent="." unique_id=1576623064]
+visible = false
+offset_left = 472.0
+offset_top = -24.0
+offset_right = 1520.0
+offset_bottom = 1024.0
+texture = ExtResource("3_lk7ot")
+expand_mode = 1
+
+[node name="TargetSelectionDoc" type="TextureRect" parent="." unique_id=1388212975]
+visible = false
+offset_left = 472.0
+offset_top = -24.0
+offset_right = 1520.0
+offset_bottom = 1024.0
+texture = ExtResource("3_lk7ot")
+expand_mode = 1
+
 [node name="FactoryCamera" type="Camera2D" parent="." unique_id=561052534]
 position = Vector2(960, 540)
 
 [node name="BottomUIPanel" parent="FactoryCamera" unique_id=1855408237 instance=ExtResource("2_x07jf")]
 offset_left = -960.0
 offset_right = 960.0
+
+[connection signal="pressed" from="VBoxContainer/ProductionButton" to="." method="_on_production_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ForgeButton" to="." method="_on_forge_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SecurityButton" to="." method="_on_security_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SabatogeButton" to="." method="_on_sabatoge_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StealButton" to="." method="_on_steal_button_pressed"]

@@ -8,13 +8,22 @@ const QUOTA_CONTAINER = preload("uid://deo83hywn4hhu")
 
 @export_group("Initial")
 @export var initial_production: int = 200
+@export_group("Costs")
+@export var production_cost: int = 200
+@export var forge_cost: int = 100
+@export var security_cost: int = 200
+@export var sabatoge_cost: int = 100
+@export var steal_cost: int = 300
 @export_group("Upgrades")
 @export var production_increase_amount: int = 100
 @export var forging_increase_amount: int = 200
 @export var sabatoge_amount = 50
 @export_group("Production")
 ## The actual amount of production unaffected by stealing
-@export var real_production: int = 200 # TODO: Probably have this emit a signal if we edit it
+@export var real_production: int = 200: # TODO: Probably have this emit a signal if we edit it
+	set(value):
+		real_production = value
+		update_current_info()
 ## How much they're actually producing real production - stolen
 var actual_production: int:
 	get():
@@ -53,12 +62,15 @@ signal stolen_production_changed(amount: int)
 func _ready() -> void:
 	pass
 
+func _process(delta: float) -> void:
+	check_buttons_available()
+
 func get_current_quota() -> int:
 	@warning_ignore("integer_division")
 	var quota: int = player.main_game.current_total_quota / player.main_game.get_players_as_int().size()
 	return quota
 
-func create_quota_bar() -> void:
+func create_quota_bar() -> void: # TODO: Add something similar to Stalin
 	if !is_multiplayer_authority(): return
 	if player.is_stalin: return
 	print("Create Factory Quota Bar")
@@ -79,9 +91,88 @@ func create_quota_bar() -> void:
 	fake_production_changed.connect(quota_container._fake_changed)
 	stolen_production_changed.connect(quota_container._stolen_changed)
 	
-	update_current_info()
+	#update_current_info()
 
 func update_current_info() -> void:
-	real_production_changed.emit(real_production)
+	real_production_changed.emit(actual_production)
 	fake_production_changed.emit(fake_production)
 	stolen_production_changed.emit(stolen_production)
+
+func select_action(action: ActionSelection) -> void:
+	match action:
+		ActionSelection.PRODUCE:
+			current_action = ActionSelection.PRODUCE
+			player.decrease_ruble(production_cost)
+			#open_approval("Increase Production")
+		ActionSelection.FORGE:
+			current_action = ActionSelection.FORGE
+			player.decrease_ruble(forge_cost)
+			#open_approval("Forge Documents")
+		ActionSelection.SECURITY:
+			current_action = ActionSelection.SECURITY
+			player.decrease_ruble(security_cost)
+			#open_approval("Raise Security")
+		ActionSelection.SABATOGE:
+			current_action = ActionSelection.SABATOGE
+			player.decrease_ruble(sabatoge_cost)
+			#open_target_selection("Sabatoge")
+		ActionSelection.STEAL:
+			current_action = ActionSelection.STEAL
+			player.decrease_ruble(steal_cost)
+			#open_target_selection("Steal")
+		_:
+			pass
+	
+	do_nontarget_action() # TODO: Temporary, until approval page is done
+
+func do_nontarget_action() -> void:
+	match current_action:
+		ActionSelection.PRODUCE:
+			real_production += production_increase_amount
+		ActionSelection.FORGE:
+			fake_production += forging_increase_amount
+		ActionSelection.SECURITY:
+			theft_manager.theft_protection_level += 1
+		_:
+			pass
+
+func do_targeted_action(id: int) -> void:
+	match current_action:
+		ActionSelection.SABATOGE:
+			# We get the player from Get_Player, then we remove sabatoge_amount
+			pass
+		ActionSelection.STEAL:
+			theft_manager.steal(0)
+			stolen_production = theft_manager.get_amount_stolen()
+
+func calculate_loss() -> void:
+	pass
+	#lost_production = theft_manager.get_amount_lost()
+
+func check_buttons_available() -> void:
+	if !is_multiplayer_authority(): return
+	if player.ruble >= production_cost:
+		player.factory_view.production_button.disabled = false
+	else:
+		player.factory_view.production_button.disabled = true
+	
+	if player.ruble >= forge_cost:
+		player.factory_view.forge_button.disabled = false
+	else:
+		player.factory_view.forge_button.disabled = true
+	
+	if player.ruble >= security_cost:
+		player.factory_view.security_button.disabled = false
+	else:
+		player.factory_view.security_button.disabled = true
+	
+	if player.ruble >= sabatoge_cost:
+		player.factory_view.sabatoge_button.disabled = false
+	else:
+		player.factory_view.sabatoge_button.disabled = true
+	
+	if player.ruble >= steal_cost:
+		player.factory_view.steal_button.disabled = false
+	else:
+		player.factory_view.steal_button.disabled = true
+	

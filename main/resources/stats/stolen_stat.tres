@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://cfovuok7at7d8"]
+
+[ext_resource type="Script" uid="uid://bsd4imakfrcxg" path="res://main/scripts/user_interface/quota/stat.gd" id="1_hmldt"]
+
+[sub_resource type="PlaceholderTexture3D" id="PlaceholderTexture3D_p7r2x"]
+
+[resource]
+script = ExtResource("1_hmldt")
+name = "Stolen"
+icon = SubResource("PlaceholderTexture3D_p7r2x")
+metadata/_custom_type_script = "uid://bsd4imakfrcxg"

@@ -83,8 +83,9 @@ vertical_alignment = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=1951493137]
 layout_mode = 0
 offset_left = 8.0
+offset_top = 8.0
 offset_right = 1128.0
-offset_bottom = 176.0
+offset_bottom = 168.0
 
 [node name="ReportContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1729697819]
 layout_mode = 2

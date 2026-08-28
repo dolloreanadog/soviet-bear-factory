@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b70iepkvglyj2"
-path="res://.godot/imported/seizethemeans_portaits_seal.png-b0d3229d7762ef8458ee14c90ec320d0.ctex"
+uid="uid://7thg34hyf7rt"
+path="res://.godot/imported/seizethemeans_document.png-f3b66f4481e34be8eb1b3f4eac29108f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://seizethemeans_portaits_seal.png"
-dest_files=["res://.godot/imported/seizethemeans_portaits_seal.png-b0d3229d7762ef8458ee14c90ec320d0.ctex"]
+source_file="res://main/assets/textures/seizethemeans_document.png"
+dest_files=["res://.godot/imported/seizethemeans_document.png-f3b66f4481e34be8eb1b3f4eac29108f.ctex"]
 
 [params]
 
