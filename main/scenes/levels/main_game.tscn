@@ -50,6 +50,26 @@ offset_bottom = 1080.0
 [node name="LobbyCamera" type="Camera2D" parent="Lobby" unique_id=1447353807]
 position = Vector2(960, 540)
 
+[node name="WinnerPanel" type="Panel" parent="Lobby" unique_id=1837998077]
+visible = false
+offset_left = 512.0
+offset_top = 64.0
+offset_right = 1600.0
+offset_bottom = 768.0
+
+[node name="WinnerList" type="RichTextLabel" parent="Lobby/WinnerPanel" unique_id=1113340941]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 704.0
+
+[node name="Label" type="Label" parent="Lobby/WinnerPanel" unique_id=127844423]
+layout_mode = 0
+offset_right = 1088.0
+offset_bottom = 64.0
+text = "Winners"
+horizontal_alignment = 1
+
 [node name="StalinView" parent="." unique_id=1704629776 instance=ExtResource("3_ivhxd")]
 unique_name_in_owner = true
 position = Vector2(0, 2160)

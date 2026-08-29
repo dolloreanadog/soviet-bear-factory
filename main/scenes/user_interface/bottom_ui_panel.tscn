@@ -43,9 +43,9 @@ texture = SubResource("PlaceholderTexture2D_kifso")
 [node name="QuotaPanel" type="Panel" parent="." unique_id=907304938]
 layout_mode = 0
 offset_left = 1728.0
-offset_top = 68.0
+offset_top = -177.0
 offset_right = 1920.0
-offset_bottom = 244.0
+offset_bottom = -1.0
 
 [node name="Label" type="Label" parent="QuotaPanel" unique_id=1060838400]
 layout_mode = 0
@@ -67,13 +67,13 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 584.0
 offset_top = 68.0
-offset_right = 1720.0
+offset_right = 1912.0
 offset_bottom = 244.0
 
 [node name="Label" type="Label" parent="Panel" unique_id=1387084150]
 layout_mode = 0
 offset_top = -64.0
-offset_right = 1136.0
+offset_right = 752.0
 offset_bottom = -1.0
 theme_override_font_sizes/font_size = 40
 text = "Quota"
@@ -84,7 +84,7 @@ vertical_alignment = 2
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 1128.0
+offset_right = 1320.0
 offset_bottom = 168.0
 
 [node name="ReportContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1729697819]

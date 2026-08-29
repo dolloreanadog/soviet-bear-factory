@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cuqbtrlqdc5ve"]
+
+[ext_resource type="Texture2D" uid="uid://ck67rsfw4l1uq" path="res://main/assets/textures/seizethemeans_factory.png" id="1_aalgg"]
+[ext_resource type="Script" uid="uid://jcxqatcb6kwm" path="res://main/scripts/user_interface/stalin/factory_panel.gd" id="2_aalgg"]
+
+[node name="Control" type="Control" unique_id=733917071]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_aalgg")
+
+[node name="FactoryPanel" type="TextureButton" parent="." unique_id=497452865]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 224.0
+offset_bottom = 192.0
+texture_normal = ExtResource("1_aalgg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="NameLabel" type="Label" parent="." unique_id=800326917]
+layout_mode = 0
+offset_top = 200.0
+offset_right = 256.0
+offset_bottom = 223.0
+text = "Name"
+
+[node name="QuotaLabel" type="Label" parent="." unique_id=1340323448]
+layout_mode = 0
+offset_top = 232.0
+offset_right = 256.0
+offset_bottom = 255.0
+text = "????"
+
+[node name="Panel" type="Panel" parent="." unique_id=660202159]
+visible = false
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1051312930]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+theme_override_constants/separation = 16
+
+[node name="DoneButton" type="Button" parent="Panel/VBoxContainer" unique_id=345379038]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Done"
+
+[node name="BoostButton" type="Button" parent="Panel/VBoxContainer" unique_id=1768739916]
+layout_mode = 2
+text = "₽100 - Boost"
+
+[node name="InvestigateButton" type="Button" parent="Panel/VBoxContainer" unique_id=1348337031]
+layout_mode = 2
+text = "₽300 - Investigate"
+
+[node name="ExecuteButton" type="Button" parent="Panel/VBoxContainer" unique_id=1102946648]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Execute"
+
+[connection signal="pressed" from="FactoryPanel" to="." method="_on_factory_panel_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_done_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/BoostButton" to="." method="_on_boost_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/InvestigateButton" to="." method="_on_investigate_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ExecuteButton" to="." method="_on_execute_button_pressed"]

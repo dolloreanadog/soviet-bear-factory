@@ -14,6 +14,7 @@ var stat_datas: Dictionary[Stat, ProductionData]
 
 func setup(report_number: int, quota: int) -> void:
 	report_label.text = str(report_number)
+	quota_bar.custom_minimum_size.x = quota
 	quota_amount_label.text = str(quota)
 
 func add_stat_data(stat_data: ProductionData) -> void: # TODO: We keep adding new stat_data

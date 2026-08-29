@@ -11,17 +11,14 @@ signal target_selected(id: int)
 func check_quota_status() -> void:
 	var main_game: MainGame = get_tree().get_first_node_in_group("MainGame")
 	
-	for player: Player in main_game.get_players_as_player():
-		if target_id == int(player.name):
-			if player.factory_manager.is_meeting_quota():
-				status_label.text = "Meets Quota"
-				status_label.self_modulate = Color.GREEN
-			else:
-				status_label.text = "Doesn't Meet Quota"
-				status_label.self_modulate = Color.RED
-			
-			break
-
+	var player: Player = main_game.get_player_as_player(target_id)
+	
+	if player.factory_manager.is_meeting_quota():
+		status_label.text = "Meets Quota"
+		status_label.self_modulate = Color.GREEN
+	else:
+		status_label.text = "Doesn't Meet Quota"
+		status_label.self_modulate = Color.RED
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

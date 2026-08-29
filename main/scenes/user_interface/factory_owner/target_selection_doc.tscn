@@ -34,3 +34,13 @@ offset_bottom = 968.0
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=515965551]
 layout_mode = 2
 columns = 2
+
+[node name="ExitButton" type="Button" parent="." unique_id=146031779]
+layout_mode = 0
+offset_left = 848.0
+offset_top = 48.0
+offset_right = 1056.0
+offset_bottom = 112.0
+text = "Exit"
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

@@ -19,11 +19,13 @@ const PLAYER = preload("uid://mhtuvanjpkj2")
 
 ## How much time it takes for stalin to get new report
 @export var report_time: int = 120
-@export var initial_total_quota = 1000
+## How many reports until the game ends
+@export var total_reports: int = 10
+@export var initial_total_quota = 100
 
 var current_report_time: int = -1
 var current_report: int = 0
-@export var current_total_quota: int = 500
+@export var current_total_quota: int = 100
 
 var factory_group: Array[int] = []
 var stalin_player_id: int = -1
@@ -111,7 +113,9 @@ func end_game() -> void:
 		start_button.disabled = false
 		for player: Player in get_players_as_player():
 			player.pay_timer.stop()
-			player.is_active = false
+			player.set_active.rpc(false)
+	
+	put_into_lobby_view()
 	report_timer.stop()
 
 
@@ -156,7 +160,6 @@ func set_camera_view(view: CameraViews) -> void:
 			put_into_spectator_view()
 		_:
 			pass
-
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -241,21 +244,26 @@ func _on_stalin_chosen() -> void:
 	if NetworkManager.is_host:
 		report_timer.start()
 		report()
+		factory_group.clear()
 		
 		for id: int in get_players_as_int():
 			if id != stalin_player_id:
 				set_camera_view.rpc_id(id, CameraViews.FACTORY)
-				factory_group.clear()
 				factory_group.append(id)
 			else:
 				set_camera_view.rpc_id(id, CameraViews.STALIN)
+				
+				
 			
 			var player: Player = get_player_as_player(id)
 			player.ready_player.rpc_id(id)
 		
 		for player: Player in get_players_as_player():
 			player.pay_timer.start()
-			player.is_active = true
+			player.set_active.rpc(true)
+			
+			if player.is_stalin:
+				player.stalin_manager.add_factories.rpc_id(int(player.name))
 
 
 func _on_report_timer_timeout() -> void:
@@ -276,3 +284,6 @@ func report() -> void:
 	current_report += 1
 	get_next_total_quota.rpc()
 	request_report.rpc() # For some reason it is stopping here
+	
+	if current_report >= total_reports:
+		end_game.rpc()

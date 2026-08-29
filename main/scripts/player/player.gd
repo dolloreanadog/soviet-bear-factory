@@ -2,8 +2,8 @@ extends Node
 class_name Player
 
 var real_name: String = "Player"
-var is_stalin: bool = false
-var is_active: bool = false
+@export var is_stalin: bool = false
+@export var is_active: bool = false
 
 var main_game: MainGame
 var lobby: Node2D
@@ -24,6 +24,7 @@ var spectator_view: SpectatorView
 
 signal player_ready()
 signal ruble_changed(amount: int)
+signal factory_closed()
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -56,6 +57,10 @@ func assign_identity(id: int) -> void:
 		_change_name.rpc(Global.player_name)
 
 @rpc("any_peer","call_local", "reliable")
+func set_active(value: bool) -> void:
+	is_active = value
+
+@rpc("any_peer","call_local", "reliable")
 func increase_ruble(amount: int) -> void:
 	if is_multiplayer_authority():
 		ruble += amount
@@ -74,6 +79,11 @@ func has_enough_ruble(decrease_amount: int) -> bool:
 	if ruble - decrease_amount < 0:
 		return false
 	return true
+
+@rpc("any_peer","call_local", "reliable")
+func close_factory() -> void:
+	is_active = false
+	#factory_closed.emit()
 
 @rpc("any_peer", "call_local", "reliable")
 func ready_player() -> void:
@@ -94,7 +104,7 @@ func _deal_new_report() -> void:
 func _new_report() -> void:
 	if !is_multiplayer_authority(): return
 	if is_stalin:
-		increase_ruble(500)
+		increase_ruble(1000)
 	else:
 		factory_manager.create_quota_bar()
 

@@ -12,6 +12,7 @@ mouse_default_cursor_shape = 2
 script = ExtResource("1_r3kp5")
 
 [node name="NameLabel" type="Label" parent="." unique_id=99630311]
+modulate = Color(0.06053035, 0.06053035, 0.060530342, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

@@ -20,7 +20,7 @@ func _on_accept_button_gui_input(event: InputEvent) -> void:
 			accept_button_pressed.emit()
 			yes_texture.show()
 			blocker.show()
-			await get_tree().create_timer(2).timeout
+			await get_tree().create_timer(0.5).timeout
 			blocker.hide()
 			hide()
 
@@ -32,6 +32,6 @@ func _on_decline_button_gui_input(event: InputEvent) -> void:
 			decline_button_pressed.emit()
 			no_texture.show()
 			blocker.show()
-			await get_tree().create_timer(2).timeout
+			await get_tree().create_timer(0.5).timeout
 			blocker.hide()
 			hide()

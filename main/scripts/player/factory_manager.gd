@@ -7,7 +7,7 @@ const QUOTA_CONTAINER = preload("uid://deo83hywn4hhu")
 @onready var theft_manager: TheftManager = $TheftManager
 
 @export_group("Initial")
-@export var initial_production: int = 200
+@export var initial_production: int = 0
 @export_group("Costs")
 @export var production_cost: int = 200
 @export var forge_cost: int = 100
@@ -15,13 +15,13 @@ const QUOTA_CONTAINER = preload("uid://deo83hywn4hhu")
 @export var sabatoge_cost: int = 100
 @export var steal_cost: int = 300
 @export_group("Upgrades")
-@export var production_increase_amount: int = 100
-@export var forging_increase_amount: int = 200
-@export var sabatoge_amount = 50
-@export var steal_increase_amount: int = 100
+@export var production_increase_amount: int = 5
+@export var forging_increase_amount: int = 10
+@export var sabatoge_amount = 5
+@export var steal_increase_amount: int = 10
 @export_group("Production")
 ## The actual amount of production unaffected by stealing
-@export var real_production: int = 200: # TODO: Probably have this emit a signal if we edit it
+@export var real_production: int = 0: # TODO: Probably have this emit a signal if we edit it
 	set(value):
 		real_production = value
 		#real_production_changed.emit(actual_production)
@@ -31,7 +31,7 @@ var actual_production: int:
 	get():
 		return real_production - lost_production
 ## How much is being currently stolen for our own production
-var lost_production: int = 0:
+@export var lost_production: int = 0:
 	set(value):
 		lost_production = maxi(0, value)
 ## How much of it is stolen from others
@@ -47,7 +47,7 @@ var lost_production: int = 0:
 		update_current_info()
 var total_production: int:
 	get():
-		var total: int = actual_production + stolen_production + fake_production
+		var total: int = real_production + stolen_production + fake_production
 		return total
 
 enum ActionSelection {
@@ -73,7 +73,9 @@ func _process(delta: float) -> void:
 
 func get_current_quota() -> int:
 	@warning_ignore("integer_division")
-	var quota: int = player.main_game.current_total_quota / player.main_game.get_players_as_int().size()
+	print("Player size: %s" % [player.main_game.current_total_quota])
+	print("Player size: %s" % [player.main_game.get_players_as_player().size()])
+	var quota: int = player.main_game.current_total_quota / (player.main_game.get_players_as_player().size() - 1)
 	return quota
 
 func create_quota_bar() -> void: # TODO: Add something similar to Stalin
@@ -97,7 +99,7 @@ func create_quota_bar() -> void: # TODO: Add something similar to Stalin
 	fake_production_changed.connect(quota_container._fake_changed)
 	stolen_production_changed.connect(quota_container._stolen_changed)
 	
-	#update_current_info()
+	update_current_info()
 
 func update_current_info() -> void:
 	real_production_changed.emit(actual_production)
@@ -105,6 +107,7 @@ func update_current_info() -> void:
 	stolen_production_changed.emit(stolen_production)
 
 func select_action(action: ActionSelection) -> void:
+	if !is_multiplayer_authority(): return
 	match action:
 		ActionSelection.PRODUCE:
 			current_action = ActionSelection.PRODUCE
@@ -158,53 +161,66 @@ func do_nontarget_action() -> void:
 
 func do_targeted_action(id: int) -> void:
 	if !is_multiplayer_authority(): return
+	print("%s: Removing from %s" % [multiplayer.get_unique_id(), id])
+	var selected: Player = player.main_game.get_player_as_player(id)
+	
 	match current_action:
 		ActionSelection.SABATOGE:
 			# We get the player from Get_Player, then we remove sabatoge_amount
-			remove_production.rpc_id(id, sabatoge_amount)
+			selected.factory_manager.remove_production.rpc_id(id, sabatoge_amount)
+			player.decrease_ruble(sabatoge_cost)
 		ActionSelection.STEAL:
 			stolen_production += steal_increase_amount
-			remove_production.rpc_id(id, steal_increase_amount)
+			selected.factory_manager.remove_production.rpc_id(id, steal_increase_amount)
+			player.decrease_ruble(steal_cost)
 			#theft_manager.steal(0)
 			#stolen_production = theft_manager.get_amount_stolen()
 
 @rpc("any_peer", "call_local", "reliable")
 func remove_production(amount: int) -> void:
+	print("Remove production")
 	real_production -= amount
+	print("%s: Remove production: %s" % [multiplayer.get_unique_id() , real_production])
+	update_current_info()
+
+@rpc("any_peer", "call_local", "reliable")
+func sync_production(amount: int) -> void:
+	real_production = amount
 
 func calculate_loss() -> void:
 	pass
 	#lost_production = theft_manager.get_amount_lost()
 
 func is_meeting_quota() -> bool:
-	if get_current_quota() >= total_production:
+	print("Current Quota: %s/%s" % [total_production, get_current_quota()])
+	if total_production >= get_current_quota():
 		return true
 	else:
 		return false
 
 func check_buttons_available() -> void:
 	if !is_multiplayer_authority(): return
-	if player.ruble >= production_cost:
+	if player.ruble >= production_cost and player.is_active:
 		player.factory_view.production_button.disabled = false
 	else:
 		player.factory_view.production_button.disabled = true
 	
-	if player.ruble >= forge_cost:
+	if player.ruble >= forge_cost and player.is_active:
 		player.factory_view.forge_button.disabled = false
 	else:
 		player.factory_view.forge_button.disabled = true
 	
-	if player.ruble >= security_cost:
+	if player.ruble >= security_cost and player.is_active:
 		player.factory_view.security_button.disabled = false
 	else:
 		player.factory_view.security_button.disabled = true
 	
-	if player.ruble >= sabatoge_cost:
+	if player.ruble >= sabatoge_cost and player.is_active:
 		player.factory_view.sabatoge_button.disabled = false
 	else:
 		player.factory_view.sabatoge_button.disabled = true
 	
-	if player.ruble >= steal_cost:
+	if player.ruble >= steal_cost and player.is_active:
 		player.factory_view.steal_button.disabled = false
 	else:
 		player.factory_view.steal_button.disabled = true

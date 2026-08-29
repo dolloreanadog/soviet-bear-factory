@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://f6cnpukxq0mr"]
 
-[ext_resource type="Script" uid="uid://dshdhabuevb0y" path="res://main/scenes/user_interface/stalin/stalin_view.gd" id="1_y8gv1"]
+[ext_resource type="Script" uid="uid://q7kqonukhrbe" path="res://main/scripts/user_interface/stalin/stalin_view.gd" id="1_csrwb"]
 [ext_resource type="Texture2D" uid="uid://du8e4tulhmc80" path="res://main/assets/textures/seizethemeans_portaits_stalin.png" id="2_csrwb"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="3_7ens1"]
 
 [node name="StalinView" type="Node2D" unique_id=1704629776]
-script = ExtResource("1_y8gv1")
+script = ExtResource("1_csrwb")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1369202566]
 offset_right = 1920.0
@@ -22,6 +22,16 @@ offset_top = 1080.0
 offset_right = 1920.0
 offset_bottom = 2160.0
 color = Color(0.47556144, 0.2520082, 0.2382971, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=605714135]
+offset_left = 832.0
+offset_top = 64.0
+offset_right = 1856.0
+offset_bottom = 640.0
+
+[node name="FactoryGrid" type="GridContainer" parent="ScrollContainer" unique_id=1158674249]
+layout_mode = 2
+columns = 4
 
 [node name="StalinCamera" type="Camera2D" parent="." unique_id=582649511]
 position = Vector2(960, 540)
