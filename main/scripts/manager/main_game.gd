@@ -111,6 +111,7 @@ func end_game() -> void:
 		start_button.disabled = false
 		for player: Player in get_players_as_player():
 			player.pay_timer.stop()
+			player.is_active = false
 	report_timer.stop()
 
 
@@ -252,6 +253,7 @@ func _on_stalin_chosen() -> void:
 		
 		for player: Player in get_players_as_player():
 			player.pay_timer.start()
+			player.is_active = true
 
 
 func _on_report_timer_timeout() -> void:

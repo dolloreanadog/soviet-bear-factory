@@ -3,6 +3,7 @@ class_name Player
 
 var real_name: String = "Player"
 var is_stalin: bool = false
+var is_active: bool = false
 
 var main_game: MainGame
 var lobby: Node2D
@@ -24,6 +25,9 @@ var spectator_view: SpectatorView
 signal player_ready()
 signal ruble_changed(amount: int)
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 func _ready() -> void:
 	main_game = get_tree().get_first_node_in_group("MainGame")
 	stalin_view = main_game.stalin_view
@@ -36,11 +40,13 @@ func _ready() -> void:
 	
 	factory_view.action_selected.connect(factory_manager.select_action)
 	factory_view.approval_doc.accept_button_pressed.connect(factory_manager._action_selected)
+	factory_view.target_selection_doc.target_selected.connect(factory_manager._target_selected)
 
 @rpc("any_peer","call_local", "reliable")
 func _change_name(player_name: String) -> void:
 	real_name = player_name
 	player_ready.emit()
+
 
 @rpc("any_peer","call_local", "reliable")
 func assign_identity(id: int) -> void:

@@ -34,6 +34,7 @@ layout_mode = 2
 text = "Forge Documents"
 
 [node name="SecurityButton" type="Button" parent="VBoxContainer" unique_id=1425734808]
+visible = false
 layout_mode = 2
 text = "Raise Security"
 
@@ -49,6 +50,7 @@ text = "Steal Production"
 visible = false
 
 [node name="TargetSelectionDoc" parent="." unique_id=1739549583 instance=ExtResource("4_0kgqg")]
+visible = false
 
 [node name="FactoryCamera" type="Camera2D" parent="." unique_id=561052534]
 position = Vector2(960, 540)

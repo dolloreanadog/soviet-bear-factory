@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://gj243beoyrkd" path="res://main/assets/textures/seizethemeans_icon_48.jpg" id="2_0a1u2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7r2x"]
-bg_color = Color(0.29681176, 0.70524085, 0.22059071, 1)
+resource_local_to_scene = true
+bg_color = Color(1, 1, 1, 1)
 
 [node name="ProductionContainer" type="PanelContainer" unique_id=1135417214]
 custom_minimum_size = Vector2(0, 40)

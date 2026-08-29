@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dk4lm2sl7jxn2"]
+
+[ext_resource type="Script" uid="uid://cklhue444fid3" path="res://main/scripts/user_interface/factory_owner/target_panel.gd" id="1_r3kp5"]
+
+[node name="TargetPanel" type="Control" unique_id=610829088]
+custom_minimum_size = Vector2(280, 48)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 280.0
+offset_bottom = 48.0
+script = ExtResource("1_r3kp5")
+
+[node name="NameLabel" type="Label" parent="." unique_id=99630311]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Name"
+
+[node name="StatusLabel" type="Label" parent="." unique_id=725278326]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 40.0
+offset_bottom = 47.0
+text = "Meets Quota"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -1,12 +1,47 @@
 [gd_scene format=3 uid="uid://djcb5mcicdxss"]
 
 [ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="1_mhlri"]
+[ext_resource type="Script" uid="uid://1ilavviesxw2" path="res://main/scripts/user_interface/factory_owner/target_selection_doc.gd" id="2_405kt"]
+[ext_resource type="PackedScene" uid="uid://dk4lm2sl7jxn2" path="res://main/scenes/user_interface/factory_owner/target_panel.tscn" id="3_0t685"]
 
 [node name="TargetSelectionDoc" type="TextureRect" unique_id=1739549583]
-visible = false
 offset_left = 472.0
 offset_top = -24.0
 offset_right = 1520.0
 offset_bottom = 1024.0
 texture = ExtResource("1_mhlri")
 expand_mode = 1
+script = ExtResource("2_405kt")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1178415595]
+custom_maximum_size = Vector2(376, 176)
+layout_mode = 0
+offset_left = 432.0
+offset_top = 88.0
+offset_right = 808.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0.22926119, 0.198069, 0.1315544, 1)
+theme_override_font_sizes/font_size = 43
+text = "Title"
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1154445354]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 280.0
+offset_right = 808.0
+offset_bottom = 968.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=515965551]
+layout_mode = 2
+columns = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=23442980]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 280.0
+offset_right = 808.0
+offset_bottom = 968.0
+
+[node name="TargetPanel" parent="." unique_id=610829088 instance=ExtResource("3_0t685")]
+layout_mode = 0

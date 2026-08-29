@@ -5,7 +5,7 @@ class_name FactoryView
 @onready var bottom_ui_panel: BottomUIPanel = $FactoryCamera/BottomUIPanel
 
 @onready var approval_doc: ApprovalDoc = $ApprovalDoc
-@onready var target_selection_doc: TextureRect = $TargetSelectionDoc
+@onready var target_selection_doc: TargetSelectionDoc = $TargetSelectionDoc
 
 @onready var production_button: Button = $VBoxContainer/ProductionButton
 @onready var forge_button: Button = $VBoxContainer/ForgeButton
@@ -43,5 +43,9 @@ func open_approval(title: String) -> void:
 	approval_doc.show()
 	approval_doc.title_label.text = title
 
-func _open_target_selection(title: String) -> void:
-	pass
+func open_target_selection(title: String) -> void:
+	target_selection_doc.show()
+	target_selection_doc.title_label.text = title
+	for target: TargetPanel in target_selection_doc.grid_container.get_children():
+		target.queue_free()
+	target_selection_doc.add_targets()

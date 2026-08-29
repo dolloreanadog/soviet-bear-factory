@@ -30,9 +30,9 @@ func set_stat_data(_stat_data: ProductionData) -> void:
 
 
 func _update_stat_data_dependencies() -> void:
-	print(stat_data.stat.icon)
 	test_data = stat_data
 	#texture_rect.texture = stat_data.stat.icon # From here to the next line, texture rect no longer has a texture
+	print("Set Color: %s" % [stat_data.stat.color])
 	style_box.border_color = stat_data.stat.color
 	panel_stylebox.bg_color = stat_data.stat.color
 	#set_material_thickness(stat_data.value / 20)

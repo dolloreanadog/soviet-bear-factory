@@ -18,11 +18,13 @@ const QUOTA_CONTAINER = preload("uid://deo83hywn4hhu")
 @export var production_increase_amount: int = 100
 @export var forging_increase_amount: int = 200
 @export var sabatoge_amount = 50
+@export var steal_increase_amount: int = 100
 @export_group("Production")
 ## The actual amount of production unaffected by stealing
 @export var real_production: int = 200: # TODO: Probably have this emit a signal if we edit it
 	set(value):
 		real_production = value
+		#real_production_changed.emit(actual_production)
 		update_current_info()
 ## How much they're actually producing real production - stolen
 var actual_production: int:
@@ -31,15 +33,17 @@ var actual_production: int:
 ## How much is being currently stolen for our own production
 var lost_production: int = 0:
 	set(value):
-		lost_production = maxi(0, lost_production)
+		lost_production = maxi(0, value)
 ## How much of it is stolen from others
-var stolen_production: int = 0:
+@export var stolen_production: int = 0:
 	set(value):
-		stolen_production = maxi(0, lost_production)
+		stolen_production = maxi(0, value)
+		#stolen_production_changed.emit(stolen_production)
 		update_current_info()
-var fake_production: int = 0:
+@export var fake_production: int = 0:
 	set(value):
-		fake_production = maxi(0, lost_production)
+		fake_production = maxi(0, value)
+		#fake_production_changed.emit(fake_production)
 		update_current_info()
 var total_production: int:
 	get():
@@ -119,12 +123,12 @@ func select_action(action: ActionSelection) -> void:
 			#open_approval("Raise Security")
 		ActionSelection.SABATOGE:
 			current_action = ActionSelection.SABATOGE
-			player.factory_view.open_approval("Sabatoge Another")
+			player.factory_view.open_target_selection("Sabatoge Another")
 			#player.decrease_ruble(sabatoge_cost)
 			#open_target_selection("Sabatoge")
 		ActionSelection.STEAL:
 			current_action = ActionSelection.STEAL
-			player.factory_view.open_approval("Steal Production")
+			player.factory_view.open_target_selection("Steal Production")
 			#player.decrease_ruble(steal_cost)
 			#open_target_selection("Steal")
 		_:
@@ -147,17 +151,30 @@ func do_nontarget_action() -> void:
 			pass
 
 func do_targeted_action(id: int) -> void:
+	if !is_multiplayer_authority(): return
 	match current_action:
 		ActionSelection.SABATOGE:
 			# We get the player from Get_Player, then we remove sabatoge_amount
-			pass
+			remove_production.rpc_id(id, sabatoge_amount)
 		ActionSelection.STEAL:
-			theft_manager.steal(0)
-			stolen_production = theft_manager.get_amount_stolen()
+			stolen_production += steal_increase_amount
+			remove_production.rpc_id(id, steal_increase_amount)
+			#theft_manager.steal(0)
+			#stolen_production = theft_manager.get_amount_stolen()
+
+@rpc("any_peer", "call_local", "reliable")
+func remove_production(amount: int) -> void:
+	real_production -= amount
 
 func calculate_loss() -> void:
 	pass
 	#lost_production = theft_manager.get_amount_lost()
+
+func is_meeting_quota() -> bool:
+	if get_current_quota() >= total_production:
+		return true
+	else:
+		return false
 
 func check_buttons_available() -> void:
 	if !is_multiplayer_authority(): return
@@ -189,5 +206,5 @@ func check_buttons_available() -> void:
 func _action_selected() -> void:
 	do_nontarget_action()
 
-func _target_selected() -> void:
-	pass
+func _target_selected(id: int) -> void:
+	do_targeted_action(id)
