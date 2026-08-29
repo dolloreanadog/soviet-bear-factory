@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ck67rsfw4l1uq" path="res://main/assets/textures/seizethemeans_factory.png" id="1_aalgg"]
 [ext_resource type="Script" uid="uid://jcxqatcb6kwm" path="res://main/scripts/user_interface/stalin/factory_panel.gd" id="2_aalgg"]
+[ext_resource type="Theme" uid="uid://dqpdhysxbslof" path="res://main/resources/main_theme.tres" id="3_njv1c"]
 
 [node name="Control" type="Control" unique_id=733917071]
 custom_minimum_size = Vector2(256, 256)
@@ -35,14 +36,16 @@ offset_bottom = 255.0
 text = "????"
 
 [node name="Panel" type="Panel" parent="." unique_id=660202159]
-visible = false
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 256.0
+theme = ExtResource("3_njv1c")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1051312930]
 layout_mode = 0
-offset_right = 256.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 248.0
 offset_bottom = 256.0
 theme_override_constants/separation = 16
 

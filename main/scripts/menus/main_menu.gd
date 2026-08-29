@@ -16,6 +16,7 @@ func _on_host_button_pressed() -> void:
 
 
 func _on_join_button_pressed() -> void:
+	Global.player_name = player_line_edit.text
 	Global.go_to_game()
 	#await get_tree().create_timer(0.5).timeout
 	NetworkManager.join_server(ip_line_edit.text)

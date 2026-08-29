@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://xwnj4nnggtky"]
 
 [ext_resource type="Script" uid="uid://bjty55unk4fyf" path="res://main/scripts/menus/main_menu.gd" id="1_wpk3s"]
+[ext_resource type="Texture2D" uid="uid://cds3fana1to6h" path="res://main/assets/textures/seizethemeans_bg_lobby-01.jpg" id="2_715hc"]
+[ext_resource type="Theme" uid="uid://dqpdhysxbslof" path="res://main/resources/main_theme.tres" id="3_3f4m0"]
+[ext_resource type="AudioStream" uid="uid://dsol6ymfouwi7" path="res://main/assets/audio/music/seize_mus_menu.ogg" id="4_dvbju"]
 
 [node name="MainMenu" type="Node2D" unique_id=703556153]
 script = ExtResource("1_wpk3s")
@@ -12,10 +15,24 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.25903893, 0.43426433, 0.6797244, 1)
 
+[node name="SeizethemeansBgLobby01" type="TextureRect" parent="Main" unique_id=1240586671]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_715hc")
+
+[node name="Panel" type="Panel" parent="Main" unique_id=1896029559]
+offset_left = 1304.0
+offset_top = 176.0
+offset_right = 1880.0
+offset_bottom = 944.0
+theme = ExtResource("3_3f4m0")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Main" unique_id=1372740234]
-offset_top = 192.0
-offset_right = 560.0
-offset_bottom = 768.0
+offset_left = 1312.0
+offset_top = 368.0
+offset_right = 1872.0
+offset_bottom = 944.0
+theme = ExtResource("3_3f4m0")
 theme_override_constants/separation = 16
 
 [node name="HostButton" type="Button" parent="Main/VBoxContainer" unique_id=351376302]
@@ -68,6 +85,7 @@ layout_mode = 2
 text = "Join"
 
 [node name="SettingsButton" type="Button" parent="Main/VBoxContainer" unique_id=245415956]
+visible = false
 layout_mode = 2
 text = "Settings"
 
@@ -76,10 +94,16 @@ layout_mode = 2
 text = "Exit"
 
 [node name="Settings" type="Control" parent="." unique_id=1950627904]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="SeizeMusMenu" type="AudioStreamPlayer" parent="." unique_id=2129701927]
+stream = ExtResource("4_dvbju")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="Main/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Main/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/ChangeButton" to="." method="_on_change_button_pressed"]

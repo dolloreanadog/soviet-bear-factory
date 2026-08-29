@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://xjgfc17crloh"]
 
 [ext_resource type="Script" uid="uid://brxsnb60j0pkw" path="res://main/scripts/manager/main_game.gd" id="1_d2ed5"]
+[ext_resource type="Texture2D" uid="uid://cds3fana1to6h" path="res://main/assets/textures/seizethemeans_bg_lobby-01.jpg" id="2_7vhnc"]
 [ext_resource type="PackedScene" uid="uid://ddnx012jb7iph" path="res://main/scenes/user_interface/text_chat_panel.tscn" id="2_ccp5f"]
 [ext_resource type="PackedScene" uid="uid://f6cnpukxq0mr" path="res://main/scenes/user_interface/stalin/stalin_view.tscn" id="3_ivhxd"]
+[ext_resource type="Theme" uid="uid://dqpdhysxbslof" path="res://main/resources/main_theme.tres" id="3_oga5u"]
 [ext_resource type="PackedScene" uid="uid://dbetwinaqop0n" path="res://main/scenes/user_interface/lobby/winner_panel.tscn" id="3_v332t"]
 [ext_resource type="PackedScene" uid="uid://02ek5y2x33ly" path="res://main/scenes/user_interface/factory_owner/factory_view.tscn" id="4_v332t"]
 [ext_resource type="PackedScene" uid="uid://dyiwhfgwxlhgb" path="res://main/scenes/user_interface/spectator/spectator_view.tscn" id="5_7vhnc"]
+[ext_resource type="AudioStream" uid="uid://bbiu68w005pg" path="res://main/assets/audio/music/seize_mus_game.ogg" id="9_t18oc"]
 
 [node name="MainGame" type="Node2D" unique_id=1533948264 groups=["MainGame"]]
 script = ExtResource("1_d2ed5")
@@ -15,16 +18,20 @@ unique_name_in_owner = true
 
 [node name="Visual" type="Node2D" parent="Lobby" unique_id=1808668838]
 
-[node name="ColorRect" type="ColorRect" parent="Lobby/Visual" unique_id=1527287556]
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0.38170326, 0.38170323, 0.38170323, 1)
+[node name="SeizethemeansBgLobby01" type="TextureRect" parent="Lobby/Visual" unique_id=1238079114]
+offset_left = -152.0
+offset_top = -40.0
+offset_right = 2009.7778
+offset_bottom = 1176.0
+texture = ExtResource("2_7vhnc")
+expand_mode = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Lobby" unique_id=265209379]
 offset_left = 64.0
 offset_top = 64.0
 offset_right = 1856.0
 offset_bottom = 832.0
+theme = ExtResource("3_oga5u")
 
 [node name="PlayerListContainer" type="GridContainer" parent="Lobby/ScrollContainer" unique_id=1020825488]
 layout_mode = 2
@@ -35,6 +42,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 128.0
 offset_bottom = 48.0
+theme = ExtResource("3_oga5u")
 text = "Exit"
 
 [node name="StartButton" type="Button" parent="Lobby" unique_id=1618104310]
@@ -42,6 +50,7 @@ offset_left = 1728.0
 offset_top = 960.0
 offset_right = 1854.0
 offset_bottom = 1024.0
+theme = ExtResource("3_oga5u")
 text = "Start"
 
 [node name="TextChatPanel" parent="Lobby" unique_id=556614972 groups=["TextChat"] instance=ExtResource("2_ccp5f")]
@@ -53,14 +62,15 @@ position = Vector2(960, 540)
 
 [node name="WinnerPanel" parent="Lobby" unique_id=1616709817 instance=ExtResource("3_v332t")]
 visible = false
+theme = ExtResource("3_oga5u")
 
 [node name="StalinView" parent="." unique_id=1704629776 instance=ExtResource("3_ivhxd")]
 unique_name_in_owner = true
-position = Vector2(0, 2160)
+position = Vector2(2184, 1472)
 
 [node name="FactoryView" parent="." unique_id=1217388712 instance=ExtResource("4_v332t")]
 unique_name_in_owner = true
-position = Vector2(0, 4320)
+position = Vector2(-2192, 1536)
 
 [node name="SpectatorView" parent="." unique_id=1908967691 instance=ExtResource("5_7vhnc")]
 unique_name_in_owner = true
@@ -73,6 +83,11 @@ _spawnable_scenes = PackedStringArray("uid://mhtuvanjpkj2")
 spawn_path = NodePath("../PlayerGroup")
 
 [node name="ReportTimer" type="Timer" parent="." unique_id=1362408417]
+
+[node name="SeizeMusGame" type="AudioStreamPlayer" parent="." unique_id=1395793589]
+stream = ExtResource("9_t18oc")
+autoplay = true
+parameters/looping = true
 
 [connection signal="stalin_chosen" from="." to="." method="_on_stalin_chosen"]
 [connection signal="pressed" from="Lobby/ExitButton" to="." method="_on_exit_button_pressed"]

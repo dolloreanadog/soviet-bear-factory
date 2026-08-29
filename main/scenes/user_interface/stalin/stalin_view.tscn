@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://f6cnpukxq0mr"]
 
 [ext_resource type="Script" uid="uid://q7kqonukhrbe" path="res://main/scripts/user_interface/stalin/stalin_view.gd" id="1_csrwb"]
+[ext_resource type="Texture2D" uid="uid://ul77222lnaef" path="res://main/assets/textures/seizethemeans_bg_office-01.jpg" id="2_7ens1"]
 [ext_resource type="Texture2D" uid="uid://du8e4tulhmc80" path="res://main/assets/textures/seizethemeans_portaits_stalin.png" id="2_csrwb"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="3_7ens1"]
 [ext_resource type="PackedScene" uid="uid://cf7krn28s674b" path="res://main/scenes/user_interface/stalin/investigation_document.tscn" id="4_csrwb"]
@@ -12,6 +13,11 @@ script = ExtResource("1_csrwb")
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.5488373, 0.2987185, 0.28320393, 1)
+
+[node name="SeizethemeansBgOffice01" type="TextureRect" parent="." unique_id=385589531]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_7ens1")
 
 [node name="Stalin" type="Sprite2D" parent="." unique_id=1324377957]
 position = Vector2(311.99994, 600)

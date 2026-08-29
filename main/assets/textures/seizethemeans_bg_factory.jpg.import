@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://civgpmeo55ksu"
-path="res://.godot/imported/seizethemeans_portaits_bunny.png-fe20a2cb2f71f84633dfc8716011d788.ctex"
+uid="uid://s4dvj46qvfay"
+path="res://.godot/imported/seizethemeans_bg_factory.jpg-36172e3a386a4ef959897049db556d33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://seizethemeans_portaits_bunny.png"
-dest_files=["res://.godot/imported/seizethemeans_portaits_bunny.png-fe20a2cb2f71f84633dfc8716011d788.ctex"]
+source_file="res://main/assets/textures/seizethemeans_bg_factory.jpg"
+dest_files=["res://.godot/imported/seizethemeans_bg_factory.jpg-36172e3a386a4ef959897049db556d33.ctex"]
 
 [params]
 

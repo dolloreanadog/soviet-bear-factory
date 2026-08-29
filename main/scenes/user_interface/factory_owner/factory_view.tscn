@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://02ek5y2x33ly"]
 
 [ext_resource type="Script" uid="uid://c88rnfoacf2o" path="res://main/scripts/user_interface/factory_owner/factory_view.gd" id="1_xfabt"]
+[ext_resource type="Texture2D" uid="uid://s4dvj46qvfay" path="res://main/assets/textures/seizethemeans_bg_factory.jpg" id="2_0v8yf"]
 [ext_resource type="Texture2D" uid="uid://b70iepkvglyj2" path="res://main/assets/textures/seizethemeans_portaits_seal.png" id="2_lk7ot"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="2_x07jf"]
+[ext_resource type="Theme" uid="uid://dqpdhysxbslof" path="res://main/resources/main_theme.tres" id="3_0kgqg"]
 [ext_resource type="PackedScene" uid="uid://d22fhbv4h6jsr" path="res://main/scenes/user_interface/factory_owner/approval_doc.tscn" id="3_i715i"]
 [ext_resource type="PackedScene" uid="uid://djcb5mcicdxss" path="res://main/scenes/user_interface/factory_owner/target_selection_doc.tscn" id="4_0kgqg"]
 
@@ -14,6 +16,11 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.36197487, 0.34045944, 0.6036565, 1)
 
+[node name="SeizethemeansBgFactory" type="TextureRect" parent="." unique_id=502310292]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_0v8yf")
+
 [node name="SeizethemeansPortaitsSeal" type="Sprite2D" parent="." unique_id=522388330]
 position = Vector2(312.00003, 704)
 scale = Vector2(0.5866667, 0.5866667)
@@ -24,6 +31,8 @@ offset_left = 704.0
 offset_top = 192.0
 offset_right = 960.0
 offset_bottom = 704.0
+theme = ExtResource("3_0kgqg")
+theme_override_constants/separation = 12
 
 [node name="ProductionButton" type="Button" parent="VBoxContainer" unique_id=642240024]
 layout_mode = 2

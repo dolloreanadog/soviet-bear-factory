@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2ltjkjibfh7f"
-path="res://.godot/imported/seizethemeans_portaits_fox.png-07f294b0c1e75cb3a144fead17fbc8f8.ctex"
+path="res://.godot/imported/seizethemeans_portaits_fox.png-abbc60add7201088d3806b70310a3894.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://seizethemeans_portaits_fox.png"
-dest_files=["res://.godot/imported/seizethemeans_portaits_fox.png-07f294b0c1e75cb3a144fead17fbc8f8.ctex"]
+source_file="res://main/assets/textures/seizethemeans_portaits_fox.png"
+dest_files=["res://.godot/imported/seizethemeans_portaits_fox.png-abbc60add7201088d3806b70310a3894.ctex"]
 
 [params]
 
