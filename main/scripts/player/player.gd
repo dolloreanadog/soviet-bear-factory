@@ -16,7 +16,7 @@ var spectator_view: SpectatorView
 @onready var factory_manager: FactoryManager = $FactoryManager
 
 @export var _initial_factory_ruble: int = 100
-@export var _initial_stalin_ruble: int = 500
+@export var _initial_stalin_ruble: int = 1000
 
 @export var ruble: int = 0
 
@@ -91,7 +91,7 @@ func ready_player() -> void:
 		factory_manager.real_production = factory_manager.initial_production
 		
 		if is_stalin:
-			ruble = _initial_stalin_ruble
+			ruble = _initial_stalin_ruble * multiplayer.get_peers().size()
 		else:
 			ruble = _initial_factory_ruble
 		
@@ -104,7 +104,11 @@ func _deal_new_report() -> void:
 func _new_report() -> void:
 	if !is_multiplayer_authority(): return
 	if is_stalin:
-		increase_ruble(1000)
+		increase_ruble(500 * multiplayer.get_peers().size())
+		if main_game.current_report - 1 > 0:
+			#stalin_manager._update_factories() # Isn't this after the new quota.
+			increase_ruble(1500 * multiplayer.get_peers().size())
+			stalin_manager.create_quota_bar()
 	else:
 		factory_manager.create_quota_bar()
 
@@ -116,4 +120,4 @@ func _on_pay_timer_timeout() -> void:
 func _give_factory_pay() -> void:
 	if !is_multiplayer_authority(): return
 	if is_stalin: return
-	increase_ruble(100)
+	increase_ruble(125)

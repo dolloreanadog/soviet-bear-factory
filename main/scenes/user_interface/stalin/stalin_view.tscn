@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://q7kqonukhrbe" path="res://main/scripts/user_interface/stalin/stalin_view.gd" id="1_csrwb"]
 [ext_resource type="Texture2D" uid="uid://du8e4tulhmc80" path="res://main/assets/textures/seizethemeans_portaits_stalin.png" id="2_csrwb"]
 [ext_resource type="PackedScene" uid="uid://cxgnremn0f0nl" path="res://main/scenes/user_interface/bottom_ui_panel.tscn" id="3_7ens1"]
+[ext_resource type="PackedScene" uid="uid://cf7krn28s674b" path="res://main/scenes/user_interface/stalin/investigation_document.tscn" id="4_csrwb"]
 
 [node name="StalinView" type="Node2D" unique_id=1704629776]
 script = ExtResource("1_csrwb")
@@ -39,3 +40,6 @@ position = Vector2(960, 540)
 [node name="BottomUIPanel" parent="StalinCamera" unique_id=1855408237 instance=ExtResource("3_7ens1")]
 offset_left = -960.0
 offset_right = 960.0
+
+[node name="InvestigationDocument" parent="." unique_id=1724834457 instance=ExtResource("4_csrwb")]
+visible = false

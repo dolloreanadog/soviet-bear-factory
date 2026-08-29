@@ -6,6 +6,7 @@ var main_game: MainGame
 @onready var stalin_camera: Camera2D = $StalinCamera
 @onready var bottom_ui_panel: BottomUIPanel = $StalinCamera/BottomUIPanel
 @onready var factory_grid: GridContainer = $ScrollContainer/FactoryGrid
+@onready var investigation_document: InvestigationDocument = $InvestigationDocument
 
 const FACTORY_PANEL = preload("uid://cuqbtrlqdc5ve")
 
@@ -33,11 +34,14 @@ func clear_factories() -> void:
 		factory.queue_free()
 
 func update_factories() -> void:
+	print("Updating factories")
 	for factory: FactoryPanel in factory_grid.get_children():
 		if factory.current_status == FactoryPanel.FactoryStatus.DEAD: continue
 		var player: Player = main_game.get_player_as_player(factory.factory_id)
+		# We need to get previous quota probably
+		factory.quota_label.text = "%s/%s" % [player.factory_manager.total_production, player.factory_manager.get_past_quota()]
 		
-		if player.factory_manager.is_meeting_quota():
+		if player.factory_manager.has_met_quota():
 			factory.choose_status(FactoryPanel.FactoryStatus.GOOD)
 		else:
 			factory.choose_status(FactoryPanel.FactoryStatus.BAD)

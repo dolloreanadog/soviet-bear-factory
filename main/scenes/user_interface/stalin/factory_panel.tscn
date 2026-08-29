@@ -57,7 +57,7 @@ text = "₽100 - Boost"
 
 [node name="InvestigateButton" type="Button" parent="Panel/VBoxContainer" unique_id=1348337031]
 layout_mode = 2
-text = "₽300 - Investigate"
+text = "₽500 - Investigate"
 
 [node name="ExecuteButton" type="Button" parent="Panel/VBoxContainer" unique_id=1102946648]
 custom_minimum_size = Vector2(0, 72)

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cf7krn28s674b"]
+
+[ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="1_1wax7"]
+[ext_resource type="Script" uid="uid://cl3smxvhtkmy0" path="res://main/scripts/user_interface/stalin/investigation_document.gd" id="2_x3g0n"]
+
+[node name="InvestigationDocument" type="TextureRect" unique_id=1724834457]
+offset_left = 256.0
+offset_top = -88.0
+offset_right = 1520.0
+offset_bottom = 1176.0
+texture = ExtResource("1_1wax7")
+expand_mode = 1
+script = ExtResource("2_x3g0n")
+
+[node name="NameLabel" type="Label" parent="." unique_id=390289900]
+modulate = Color(0.17458412, 0.14441729, 0.16765067, 1)
+layout_mode = 0
+offset_left = 520.0
+offset_top = 112.0
+offset_right = 992.0
+offset_bottom = 224.0
+theme_override_font_sizes/font_size = 56
+text = "Name"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=574896019]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 344.0
+offset_right = 992.0
+offset_bottom = 456.0
+
+[node name="ReportContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1633677159]
+layout_mode = 2

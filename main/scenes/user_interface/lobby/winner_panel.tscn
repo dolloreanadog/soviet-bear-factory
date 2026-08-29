@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dbetwinaqop0n"]
+
+[ext_resource type="Script" uid="uid://cyj4jypiuap6h" path="res://main/scripts/user_interface/winner_panel.gd" id="1_w6kjm"]
+
+[node name="WinnerPanel" type="Panel" unique_id=1616709817]
+offset_left = 512.0
+offset_top = 64.0
+offset_right = 1600.0
+offset_bottom = 768.0
+script = ExtResource("1_w6kjm")
+
+[node name="StalinLabel" type="Label" parent="." unique_id=509101040]
+layout_mode = 0
+offset_right = 1088.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 135
+text = "Stalin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1556363920]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 192.0
+offset_right = 1080.0
+offset_bottom = 696.0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=847608430]
+layout_mode = 2
+text = "Winners"
+horizontal_alignment = 1
+
+[node name="WinnerList" type="RichTextLabel" parent="VBoxContainer" unique_id=1515347648]
+custom_minimum_size = Vector2(0, 421)
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="." unique_id=1459936345]
+layout_mode = 0
+offset_left = 944.0
+offset_top = 648.0
+offset_right = 1080.0
+offset_bottom = 696.0
+text = "Exit"
+
+[node name="Label" type="Label" parent="." unique_id=2119826650]
+layout_mode = 0
+offset_top = 704.0
+offset_right = 1088.0
+offset_bottom = 768.0
+theme_override_font_sizes/font_size = 24
+text = "Please restart in another lobby. I don't have time to implement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_back_button_pressed"]

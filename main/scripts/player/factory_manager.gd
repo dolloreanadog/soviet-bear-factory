@@ -78,6 +78,13 @@ func get_current_quota() -> int:
 	var quota: int = player.main_game.current_total_quota / (player.main_game.get_players_as_player().size() - 1)
 	return quota
 
+func get_past_quota() -> int:
+	@warning_ignore("integer_division")
+	print("Player size: %s" % [player.main_game.current_total_quota])
+	print("Player size: %s" % [player.main_game.get_players_as_player().size()])
+	var quota: int = player.main_game.previous_total_quota / (player.main_game.get_players_as_player().size() - 1)
+	return quota
+
 func create_quota_bar() -> void: # TODO: Add something similar to Stalin
 	if !is_multiplayer_authority(): return
 	if player.is_stalin: return
@@ -194,6 +201,13 @@ func calculate_loss() -> void:
 func is_meeting_quota() -> bool:
 	print("Current Quota: %s/%s" % [total_production, get_current_quota()])
 	if total_production >= get_current_quota():
+		return true
+	else:
+		return false
+
+func has_met_quota() -> bool:
+	print("Current Quota: %s/%s" % [total_production, get_past_quota()])
+	if total_production >= get_past_quota():
 		return true
 	else:
 		return false

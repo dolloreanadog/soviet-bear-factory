@@ -7,6 +7,8 @@ class_name MainGame
 @onready var factory_view: FactoryView = %FactoryView
 @onready var spectator_view: SpectatorView = %SpectatorView
 @onready var lobby_camera: Camera2D = $Lobby/LobbyCamera
+@onready var winner_panel: WinnerPanel = $Lobby/WinnerPanel
+
 
 @onready var report_timer: Timer = $ReportTimer
 @onready var player_list_container: GridContainer = $Lobby/ScrollContainer/PlayerListContainer
@@ -26,6 +28,7 @@ const PLAYER = preload("uid://mhtuvanjpkj2")
 var current_report_time: int = -1
 var current_report: int = 0
 @export var current_total_quota: int = 100
+var previous_total_quota: int = 0
 
 var factory_group: Array[int] = []
 var stalin_player_id: int = -1
@@ -110,10 +113,11 @@ func start_game() -> void:
 func end_game() -> void:
 	multiplayer.multiplayer_peer.refuse_new_connections = false
 	if NetworkManager.is_host:
-		start_button.disabled = false
+		winner_panel.setup.rpc()
+		start_button.disabled = true
 		for player: Player in get_players_as_player():
 			player.pay_timer.stop()
-			player.set_active.rpc(false)
+			#player.set_active.rpc(false)
 	
 	put_into_lobby_view()
 	report_timer.stop()
@@ -138,12 +142,22 @@ func put_into_spectator_view() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func request_report() -> void:
 	print("%s: emit requesting report" % [multiplayer.multiplayer_peer]) 
+	get_player_as_player(stalin_player_id).stalin_manager._update_factories() # TODO: Should check if it is all good now
+	current_report += 1
 	request_new_report.emit()
 
 @rpc("any_peer", "call_local", "reliable")
 func get_next_total_quota() -> void:
+	previous_total_quota = current_total_quota
 	current_total_quota *= 2
 
+func get_total_production() -> int:
+	var total: int = 0
+	for player: Player in get_players_as_player():
+		if player.is_stalin: continue
+		total += player.factory_manager.total_production
+	
+	return total
 
 ## This should only be an rpc_id
 @rpc("any_peer", "call_local", "reliable")
@@ -281,9 +295,9 @@ func report() -> void:
 	if !NetworkManager.is_host: return
 	print("reporting")
 	current_report_time = report_time
-	current_report += 1
 	get_next_total_quota.rpc()
 	request_report.rpc() # For some reason it is stopping here
+	
 	
 	if current_report >= total_reports:
 		end_game.rpc()

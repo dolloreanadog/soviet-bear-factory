@@ -16,7 +16,7 @@ var current_status: FactoryStatus = FactoryStatus.GOOD
 var factory_id: int
 
 @export var boost_cost: int = 100
-@export var investigate_cost: int = 300
+@export var investigate_cost: int = 500
 
 signal boost_pressed(id: int)
 signal investigate_pressed(id: int)
