@@ -9,14 +9,14 @@ const TARGET_PANEL = preload("uid://dk4lm2sl7jxn2")
 signal target_selected(id: int)
 
 func add_targets() -> void:
-	if !is_multiplayer_authority(): return
+	# TODO : I have a feeling this needs to be done in factory manager where the player actually has authropity
+	print("Doing Targets")
 	var main_game: MainGame = get_tree().get_first_node_in_group("MainGame")
 	
 	for player: Player in main_game.get_players_as_player():
 		add_target(player)
 
 func add_target(player: Player) -> void:
-	if !is_multiplayer_authority(): return
 	if player.is_stalin or !player.is_active or get_multiplayer_authority() == int(player.name): return
 	
 	var target_panel: TargetPanel = TARGET_PANEL.instantiate()

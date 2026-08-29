@@ -50,8 +50,8 @@ func _change_name(player_name: String) -> void:
 
 @rpc("any_peer","call_local", "reliable")
 func assign_identity(id: int) -> void:
-	set_multiplayer_authority(id)
-	name = str(id)
+	#set_multiplayer_authority(id)
+	
 	if is_multiplayer_authority():
 		_change_name.rpc(Global.player_name)
 

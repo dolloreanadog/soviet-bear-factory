@@ -46,6 +46,3 @@ func open_approval(title: String) -> void:
 func open_target_selection(title: String) -> void:
 	target_selection_doc.show()
 	target_selection_doc.title_label.text = title
-	for target: TargetPanel in target_selection_doc.grid_container.get_children():
-		target.queue_free()
-	target_selection_doc.add_targets()

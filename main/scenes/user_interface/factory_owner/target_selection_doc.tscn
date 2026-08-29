@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://7thg34hyf7rt" path="res://main/assets/textures/seizethemeans_document.png" id="1_mhlri"]
 [ext_resource type="Script" uid="uid://1ilavviesxw2" path="res://main/scripts/user_interface/factory_owner/target_selection_doc.gd" id="2_405kt"]
-[ext_resource type="PackedScene" uid="uid://dk4lm2sl7jxn2" path="res://main/scenes/user_interface/factory_owner/target_panel.tscn" id="3_0t685"]
 
 [node name="TargetSelectionDoc" type="TextureRect" unique_id=1739549583]
 offset_left = 472.0
@@ -35,13 +34,3 @@ offset_bottom = 968.0
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=515965551]
 layout_mode = 2
 columns = 2
-
-[node name="Panel" type="Panel" parent="." unique_id=23442980]
-layout_mode = 0
-offset_left = 248.0
-offset_top = 280.0
-offset_right = 808.0
-offset_bottom = 968.0
-
-[node name="TargetPanel" parent="." unique_id=610829088 instance=ExtResource("3_0t685")]
-layout_mode = 0

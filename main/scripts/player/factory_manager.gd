@@ -124,11 +124,17 @@ func select_action(action: ActionSelection) -> void:
 		ActionSelection.SABATOGE:
 			current_action = ActionSelection.SABATOGE
 			player.factory_view.open_target_selection("Sabatoge Another")
+			for target: TargetPanel in player.factory_view.target_selection_doc.grid_container.get_children():
+				target.queue_free()
+			player.factory_view.target_selection_doc.add_targets()
 			#player.decrease_ruble(sabatoge_cost)
 			#open_target_selection("Sabatoge")
 		ActionSelection.STEAL:
 			current_action = ActionSelection.STEAL
 			player.factory_view.open_target_selection("Steal Production")
+			for target: TargetPanel in player.factory_view.target_selection_doc.grid_container.get_children():
+				target.queue_free()
+			player.factory_view.target_selection_doc.add_targets()
 			#player.decrease_ruble(steal_cost)
 			#open_target_selection("Steal")
 		_:

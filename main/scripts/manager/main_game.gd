@@ -183,6 +183,8 @@ func _add_player(id: int) -> void:
 	if !multiplayer.is_server(): return
 	var player: Player = PLAYER.instantiate()
 	
+	player.name = str(id)
+	
 	player_group.add_child(player)
 	
 	player.player_ready.connect(_player_is_ready)
