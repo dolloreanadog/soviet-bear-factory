@@ -16,7 +16,8 @@ func create_server() -> void:
 func join_server(ip: String) -> void:
 	is_host = false
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	peer.create_client(ip, PORT)
+	var error: Error = peer.create_client(ip, PORT)
+	push_error(error)
 	multiplayer.multiplayer_peer = peer
 	push_warning("Joining server as %s" % [multiplayer.get_unique_id()])
 

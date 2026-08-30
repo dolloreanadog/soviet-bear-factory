@@ -13,7 +13,8 @@ config_version=5
 config/name="Soviet Bear Factory"
 run/main_scene="uid://quhdst0ar2xq"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://gj243beoyrkd"
+config/windows_native_icon="res://main/assets/textures/seizethemeans_icon_48.ico"
 
 [autoload]
 

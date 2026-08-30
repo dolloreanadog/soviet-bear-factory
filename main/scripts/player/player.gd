@@ -83,6 +83,14 @@ func has_enough_ruble(decrease_amount: int) -> bool:
 @rpc("any_peer","call_local", "reliable")
 func close_factory() -> void:
 	is_active = false
+	if NetworkManager.is_host:
+		var has_active_player: int = 0
+		for player: Player in main_game.get_players_as_player():
+			if player.is_active or !player.is_stalin:
+				has_active_player += 1
+		
+		if has_active_player <= 0:
+			main_game.end_game.rpc()
 	#factory_closed.emit()
 
 @rpc("any_peer", "call_local", "reliable")

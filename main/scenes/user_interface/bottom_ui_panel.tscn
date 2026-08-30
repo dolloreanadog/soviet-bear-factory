@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://dngb2dj6fypnv" path="res://main/scripts/user_interface/bottom_ui_panel.gd" id="1_p2u0l"]
 [ext_resource type="Theme" uid="uid://dqpdhysxbslof" path="res://main/resources/main_theme.tres" id="1_t3tm4"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kifso"]
-
 [node name="BottomUIPanel" type="Panel" unique_id=1855408237]
 offset_left = 960.0
 offset_top = 292.0
@@ -28,19 +26,11 @@ offset_bottom = 60.0
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 136.0
+offset_right = 184.0
 offset_bottom = 48.0
 theme_override_font_sizes/font_size = 24
 text = "₽xxxxxxxx"
 vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="RublePanel" unique_id=1785762178]
-layout_mode = 0
-offset_left = 144.0
-offset_top = 8.0
-offset_right = 184.0
-offset_bottom = 48.0
-texture = SubResource("PlaceholderTexture2D_kifso")
 
 [node name="QuotaPanel" type="Panel" parent="." unique_id=907304938]
 layout_mode = 0

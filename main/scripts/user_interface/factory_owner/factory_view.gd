@@ -3,6 +3,8 @@ class_name FactoryView
 
 @onready var factory_camera: Camera2D = $FactoryCamera
 @onready var bottom_ui_panel: BottomUIPanel = $FactoryCamera/BottomUIPanel
+@onready var potrait: TextureRect = $Potrait
+
 
 @onready var approval_doc: ApprovalDoc = $ApprovalDoc
 @onready var target_selection_doc: TargetSelectionDoc = $TargetSelectionDoc
@@ -17,6 +19,9 @@ class_name FactoryView
 signal action_selected(action: FactoryManager.ActionSelection)
 signal decision_approved()
 signal target_selected(id: int)
+
+func _ready() -> void:
+	potrait.texture = Global.avatar_selected
 
 func _on_production_button_pressed() -> void:
 	action_selected.emit(FactoryManager.ActionSelection.PRODUCE)

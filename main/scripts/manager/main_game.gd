@@ -30,6 +30,8 @@ var current_report: int = 0
 @export var current_total_quota: int = 100
 var previous_total_quota: int = 0
 
+@export var names: Dictionary[int, String]
+
 var factory_group: Array[int] = []
 var stalin_player_id: int = -1
 
@@ -56,6 +58,8 @@ func _ready() -> void:
 		multiplayer.connected_to_server.connect(_server_connected)
 		multiplayer.server_disconnected.connect(_server_disconnected)
 		multiplayer.connection_failed.connect(_connection_failed)
+	
+	names[multiplayer.get_unique_id()] = Global.name
 	
 	update_report_time.connect(stalin_view.bottom_ui_panel._update_report_time)
 	update_report_time.connect(factory_view.bottom_ui_panel._update_report_time)
@@ -186,9 +190,11 @@ func refresh_player_panels() -> void:
 		var player_panel: PlayerPanel = PLAYER_PANEL.instantiate()
 		
 		player_list_container.add_child(player_panel)
+		#player.real_name = names[int(player.name)]
 		player_panel.name_label.text = player.real_name
 		player_panel.owner_id = int(player.name)
 		player_panel.show_hide_kick()
+		
 	
 	if NetworkManager.is_host:
 		if get_players_as_player().size() >= 2:
@@ -206,9 +212,10 @@ func _add_player(id: int) -> void:
 	
 	player.player_ready.connect(_player_is_ready)
 	request_new_report.connect(player._deal_new_report)
+	
 	print("%s is connected: %s" % [player, request_new_report.is_connected(player._deal_new_report)])
 	
-	player.assign_identity.rpc(id)
+	assign_identities()
 
 func _remove_player(id: int) -> void:
 	print("leave server")
@@ -227,7 +234,7 @@ func _remove_player(id: int) -> void:
 			refresh_player_panels.rpc()
 
 func _player_is_ready() -> void:
-	refresh_player_panels.rpc()
+	pass
 
 func _server_connected() -> void:
 	pass
@@ -301,3 +308,12 @@ func report() -> void:
 	
 	if current_report >= total_reports:
 		end_game.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func assign_identities() -> void:
+	if !NetworkManager.is_host: return
+	
+	for player: Player in get_players_as_player():
+		player.assign_identity.rpc(int(player.name))
+	
+	refresh_player_panels.rpc()

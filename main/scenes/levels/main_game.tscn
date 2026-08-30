@@ -10,8 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://dyiwhfgwxlhgb" path="res://main/scenes/user_interface/spectator/spectator_view.tscn" id="5_7vhnc"]
 [ext_resource type="AudioStream" uid="uid://bbiu68w005pg" path="res://main/assets/audio/music/seize_mus_game.ogg" id="9_t18oc"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t18oc"]
+properties/0/path = NodePath(".:names")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="MainGame" type="Node2D" unique_id=1533948264 groups=["MainGame"]]
 script = ExtResource("1_d2ed5")
+total_reports = 6
 
 [node name="Lobby" type="Node2D" parent="." unique_id=52039117]
 unique_name_in_owner = true
@@ -88,6 +94,9 @@ spawn_path = NodePath("../PlayerGroup")
 stream = ExtResource("9_t18oc")
 autoplay = true
 parameters/looping = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=340758814]
+replication_config = SubResource("SceneReplicationConfig_t18oc")
 
 [connection signal="stalin_chosen" from="." to="." method="_on_stalin_chosen"]
 [connection signal="pressed" from="Lobby/ExitButton" to="." method="_on_exit_button_pressed"]
